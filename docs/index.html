@@ -106,6 +106,26 @@
   .gallery .item img.hover { opacity: 0; }
   .gallery .item:hover img.base  { opacity: 0; }
   .gallery .item:hover img.hover { opacity: 1; }
+
+  /* 图片上的文字标签 */
+  .gallery .item .label {
+    position: absolute;
+    left: 14px;
+    z-index: 2;
+    color: #444;                /* 深灰色 */
+    line-height: 1.2;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.55); /* 提升可读性 */
+  }
+  .gallery .item .label.title {
+    top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .gallery .item .label.star {
+    bottom: 12px;
+    font-size: 14px;
+  }
 </style>
 </head>
 <body>
@@ -133,20 +153,27 @@
   <section class="gallery" id="gallery"></section>
 
   <script>
-    // 在这里填入每张图的文件名（不含扩展名）。
-    // 程序会自动加载 名字.png（原图）和 名字_hover.png（悬浮图）。
+    // 显示顺序从前往后。file 不含扩展名，会加载 file.png（原图）与 file_hover.png（悬浮图）。
+    // 若没有对应的 _hover.png，悬浮时自动退回原图，不会变空白。
     const works = [
-      "work1", "work2", "work3", "work4",
-      "work5", "work6", "work7", "work8"
+      { title: "Audio Interaction Model", file: "images/Audio-Interaction",    stars: "xxx" },
+      { title: "Mega-ASR",                file: "images/Mega-ASR",             stars: "xxx" },
+      { title: "Mini-Omni-Reasoner",      file: "images/Mini-Omni-Reasoner",   stars: "xxx" },
+      { title: "Audio-Reasoner",          file: "images/audio-reasoner",       stars: "xxx" },
+      { title: "Mini-Omni2",              file: "images/Mini-Omni2",           stars: "xxx" },
+      { title: "Mini-Omni",               file: "images/Mini-Omni",            stars: "xxx" }
     ];
 
     const gallery = document.getElementById("gallery");
-    works.forEach(name => {
+    works.forEach(w => {
       const item = document.createElement("div");
       item.className = "item";
       item.innerHTML = `
-        <img class="base"  src="${name}.png" alt="">
-        <img class="hover" src="${name}_hover.png" alt="">
+        <img class="base"  src="${w.file}.png" alt="${w.title}">
+        <img class="hover" src="${w.file}_hover.png" alt="${w.title}"
+             onerror="this.onerror=null; this.src='${w.file}.png';">
+        <span class="label title">${w.title}</span>
+        <span class="label star">⭐ ${w.stars}</span>
       `;
       gallery.appendChild(item);
     });
