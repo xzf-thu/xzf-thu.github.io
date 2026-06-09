@@ -1,1 +1,156 @@
-<p> helloworld </p>
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Georgia", "Songti SC", serif;
+    color: #1a1a1a;
+    background: #ffffff;
+  }
+
+  /* ===== 顶部条状图片 ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    line-height: 0;            /* 去掉图片底部空隙 */
+  }
+  .hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  /* 底部 20% 渐变到白色 */
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+      rgba(255,255,255,0) 80%,
+      rgba(255,255,255,1) 100%);
+  }
+
+  /* ===== Biography ===== */
+  .biography {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+    text-align: center;
+  }
+  .biography p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #333;
+    margin-bottom: 22px;
+  }
+  .biography p:last-child { margin-bottom: 0; }
+
+  /* ===== my works 分隔标题 ===== */
+  .works-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    max-width: 760px;
+    margin: 0 auto 50px;
+    padding: 0 24px;
+  }
+  .works-title span {
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    white-space: nowrap;
+    color: #1a1a1a;
+  }
+  /* 左右小横线：靠近文字处为黑，向外渐变到白 */
+  .works-title .line {
+    height: 1px;
+    width: 120px;
+    flex: 0 0 auto;
+  }
+  .works-title .line.left {
+    background: linear-gradient(to right, #ffffff, #1a1a1a);
+  }
+  .works-title .line.right {
+    background: linear-gradient(to right, #1a1a1a, #ffffff);
+  }
+
+  /* ===== 图片网格：强制 4 个一排，每个 25% ===== */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .gallery .item {
+    width: 25%;            /* 每排 4 个 */
+    position: relative;
+    aspect-ratio: 3 / 4;   /* 3:4 比例 */
+    overflow: hidden;
+    line-height: 0;
+  }
+  .gallery .item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+  /* 默认显示原图，hover 图叠在上层、透明 */
+  .gallery .item img.hover { opacity: 0; }
+  .gallery .item:hover img.base  { opacity: 0; }
+  .gallery .item:hover img.hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+  <!-- 顶部条状图片 -->
+  <header class="hero">
+    <img src="top.png" alt="">
+  </header>
+
+  <!-- Biography -->
+  <section class="biography">
+    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
+    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
+    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
+  </section>
+
+  <!-- my works 分隔标题 -->
+  <div class="works-title">
+    <span class="line left"></span>
+    <span>my works</span>
+    <span class="line right"></span>
+  </div>
+
+  <!-- 作品图片网格 -->
+  <section class="gallery" id="gallery"></section>
+
+  <script>
+    // 在这里填入每张图的文件名（不含扩展名）。
+    // 程序会自动加载 名字.png（原图）和 名字_hover.png（悬浮图）。
+    const works = [
+      "work1", "work2", "work3", "work4",
+      "work5", "work6", "work7", "work8"
+    ];
+
+    const gallery = document.getElementById("gallery");
+    works.forEach(name => {
+      const item = document.createElement("div");
+      item.className = "item";
+      item.innerHTML = `
+        <img class="base"  src="${name}.png" alt="">
+        <img class="hover" src="${name}_hover.png" alt="">
+      `;
+      gallery.appendChild(item);
+    });
+  </script>
+
+</body>
+</html>
