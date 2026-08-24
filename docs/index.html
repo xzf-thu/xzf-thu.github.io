@@ -1,149 +1,162 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xie Zhifei</title>
+<title>Zhifei Xie</title>
+<meta name="description" content="Zhifei Xie — PhD student at LV-Lab, Nanyang Technological University. Audio-centric multimodal understanding and speech agents. Mini-Omni, Audio-Reasoner, Mega-ASR, Audio Interaction Model.">
+
+<!-- icon fonts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
 <style>
   /* =========================================================
-     可调超参数
-     之后主要修改这里即可
+     TUNABLE VARIABLES — edit here first
   ========================================================= */
   :root {
+    --page-width: 1000px;
 
-    /* ---------- 顶部图片 ---------- */
-    --hero-height: 29vh;
-    --hero-fade-start: 100%;
-    --hero-fade-end: 93%;
+    --ink: #191919;
+    --ink-soft: #333333;
+    --ink-mute: #767676;
+    --rule: #dddddd;
 
-    /*
-      图片内容焦点位置：
-      x 控制左右；y 越大，图片内容整体越向上移动，
-      因而会露出更多原图下方的细节。
-    */
+    --link: #1a4fa0;          /* classic academic blue, underlined */
+    --resource: #c25b12;      /* arXiv / code links under papers   */
+
+    /* ---------- typography ---------- */
+    --serif: "Charter", "Bitstream Charter", Georgia, "Times New Roman", "Songti SC", serif;
+    --body-size: 15px;
+    --body-line: 1.68;
+
+    /* ---------- hero banner ---------- */
+    --hero-height: 40vh;
+    --hero-min-height: 290px;
+    --hero-fade-start: 88%;
+
+    /* image focal point: larger y reveals more of the lower part */
     --hero-image-pos-x: 50%;
-    --hero-image-pos-y: 79%;
+    --hero-image-pos-y: 30%;
 
-    /* ---------- 姓名位置 ---------- */
-    --name-x: 20%;
-    --name-y: 53%;
+    /* name block position inside the banner */
+    --name-x: 16%;
+    --name-y: 58%;
 
-    /* ---------- 姓名大小 ---------- */
-    --name-size-min: 23px;
-    --name-size-fluid: 3vw;
-    --name-size-max: 42px;
-
-    /* ---------- 单位 / 学校信息大小 ---------- */
-    --affil-size-min: 14px;
-    --affil-size-fluid: 1.5vw;
-    --affil-size-max: 20px;
-
-    /* ---------- 姓名周围的渐白光晕 ---------- */
-    --name-halo-width: 160%;
-    --name-halo-height: 200%;
-    --name-halo-opacity: 0.64;
-    --name-halo-opacity-mid: 0.40;
-    --name-halo-opacity-low: 0.16;
-    --name-halo-blur: 22px;
-
-    /* ---------- 首屏介绍区域 ---------- */
-    --intro-height: 70vh;
-
-    /* ---------- Biography ---------- */
-    --bio-width: 760px;
-    --bio-font-size: 17px;
-    --bio-line-height: 1.88;
-    --bio-paragraph-gap: 17px;
-    --bio-padding-top: 22px;
-    --bio-padding-bottom: 22px;
-
-    /* ---------- Papers 标题 ---------- */
-    --papers-title-size: 32px;
-    --papers-title-top-gap: 12px;
-    --papers-title-line-gap: 7px;
-    --papers-gallery-gap: 4px;
-    --papers-line-width: 250px;
-    --papers-line-center-gap: 18px;
-    --papers-ornament-color: rgba(74, 74, 74, 0.72);
-    --papers-ornament-dot-color: rgba(74, 74, 74, 0.35);
-
-    /* ---------- Paper 卡片 ---------- */
-    --paper-width: 25%;
-    --paper-aspect-ratio: 3 / 4;
-    --paper-title-size: 14px;
-    --paper-date-size: 12px;
-
-    /* ---------- Paper 底部圆角毛玻璃 ---------- */
-    --stats-height: 48px;
-    --stats-font-size: 13px;
-    --stats-glass-alpha-top: 0.42;
-    --stats-glass-alpha: 0.66;
-    --stats-glass-blur: 16px;
-    --stats-radius: 15px;
-    --stats-inset-x: 14px;
-    --stats-bottom-offset: 14px;
-    --stats-gap: 12px;
-    --stats-padding-x: 14px;
+    --name-size: clamp(25px, 3vw, 38px);
+    --affil-size: clamp(13px, 1.35vw, 17px);
   }
 
-
-  /* =========================================================
-     全局
-  ========================================================= */
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 66px; }
 
   body {
-    font-family:
-      Georgia,
-      "Songti SC",
-      "Noto Serif CJK SC",
-      "STSong",
-      serif;
-
-    color: #1a1a1a;
+    font-family: var(--serif);
+    font-size: var(--body-size);
+    line-height: var(--body-line);
+    color: var(--ink-soft);
     background: #ffffff;
   }
 
-  button,
-  a {
-    font: inherit;
+  /* every link is a blue underlined link — official orgs included */
+  a { color: var(--link); text-decoration: underline; }
+  a:hover { color: #0d3574; }
+  strong, b { color: var(--ink); font-weight: bold; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 26px;
   }
 
-
   /* =========================================================
-     顶部介绍区域
-     Hero + Biography
+     TOP NAVIGATION BAR
+     transparent over the banner, turns white once scrolled
   ========================================================= */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    border-bottom: 1px solid transparent;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
 
-  .above-fold {
-    height: var(--intro-height);
+  .topbar .wrap {
+    height: 56px;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
   }
 
+  .brand {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff !important;
+    text-decoration: none;
+    white-space: nowrap;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.95) !important;
+    text-decoration: none;
+    white-space: nowrap;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  }
+  .nav-links a:hover { text-decoration: underline; }
+
+  .nav-cta {
+    padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.14);
+    font-weight: bold;
+    text-shadow: none !important;
+  }
+  .nav-cta:hover { background: rgba(255,255,255,0.28); text-decoration: none !important; }
+
+  .nav-toggle {
+    display: none;
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.14);
+    padding: 5px 9px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .topbar.solid {
+    background: #ffffff;
+    border-bottom-color: var(--rule);
+  }
+  .topbar.solid .brand { color: var(--ink) !important; text-shadow: none; }
+  .topbar.solid .nav-links a { color: var(--ink-soft) !important; text-shadow: none; }
+  .topbar.solid .nav-cta {
+    border-color: #b9c8dd;
+    background: #eef3f9;
+    color: var(--link) !important;
+  }
+  .topbar.solid .nav-toggle { border-color: var(--rule); background: #fff; color: var(--ink); }
 
   /* =========================================================
-     Hero 顶部图片
+     HERO BANNER
   ========================================================= */
-
   .hero {
     position: relative;
     width: 100%;
     height: var(--hero-height);
-    flex: 0 0 auto;
-    line-height: 0;
+    min-height: var(--hero-min-height);
     overflow: hidden;
+    line-height: 0;
+    background: #1b1b1b;
   }
 
   .hero > img {
@@ -160,874 +173,1006 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
-
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0) var(--hero-fade-start),
-      rgba(255, 255, 255, 1) var(--hero-fade-end),
-      rgba(255, 255, 255, 1) 100%
-    );
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,0.34) 0%,
+      rgba(0,0,0,0.06) 22%,
+      rgba(255,255,255,0) var(--hero-fade-start),
+      rgba(255,255,255,1) 100%);
   }
-
-
-  /* =========================================================
-     姓名 + 学校 + 联系方式
-  ========================================================= */
 
   .hero-name {
     position: absolute;
     left: var(--name-x);
     top: var(--name-y);
+    transform: translateY(-50%);
     z-index: 2;
-
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
     color: #ffffff;
     line-height: 1.3;
-    isolation: isolate;
-  }
-
-  .hero-name::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: var(--name-halo-width);
-    height: var(--name-halo-height);
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    pointer-events: none;
-
-    background: radial-gradient(
-      ellipse at center,
-      rgba(255, 255, 255, var(--name-halo-opacity)) 0%,
-      rgba(255, 255, 255, var(--name-halo-opacity-mid)) 34%,
-      rgba(255, 255, 255, var(--name-halo-opacity-low)) 56%,
-      rgba(255, 255, 255, 0) 76%
-    );
-
-    filter: blur(var(--name-halo-blur));
   }
 
   .hero-name .name {
-    font-size: clamp(
-      var(--name-size-min),
-      var(--name-size-fluid),
-      var(--name-size-max)
-    );
-
-    font-weight: 600;
+    font-size: var(--name-size);
+    font-weight: bold;
     letter-spacing: 0.01em;
-
-    text-shadow:
-      0 0 4px rgba(255, 255, 255, 0.95),
-      0 0 12px rgba(255, 255, 255, 0.66),
-      0 1px 3px rgba(0, 0, 0, 0.36);
+    text-shadow: 0 2px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4);
   }
 
   .hero-name .affil {
-    margin-top: 5px;
-
-    font-size: clamp(
-      var(--affil-size-min),
-      var(--affil-size-fluid),
-      var(--affil-size-max)
-    );
-
-    color: rgba(255, 255, 255, 0.97);
-
-    text-shadow:
-      0 0 4px rgba(255, 255, 255, 0.80),
-      0 1px 3px rgba(0, 0, 0, 0.35);
+    margin-top: 3px;
+    font-size: var(--affil-size);
+    color: rgba(255,255,255,0.96);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.42);
   }
 
   .hero-links {
-    margin-top: 9px;
-
+    margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
-
+    flex-wrap: wrap;
+    gap: 7px;
     line-height: 1;
-    white-space: nowrap;
   }
 
   .hero-links a {
+    width: 30px;
+    height: 30px;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-
-    color: rgba(255, 255, 255, 0.96);
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,0.6);
+    color: #ffffff !important;
     text-decoration: none;
-
-    font-size: clamp(12px, 1vw, 15px);
-
-    text-shadow:
-      0 0 4px rgba(255, 255, 255, 0.72),
-      0 1px 3px rgba(0, 0, 0, 0.34);
-
-    transition: opacity 0.2s ease;
-  }
-
-  .hero-links a:hover {
-    opacity: 0.72;
-  }
-
-  .hero-links .separator {
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 13px;
-  }
-
-  .hero-links svg,
-  .hero-links img {
-    width: 15px;
-    height: 15px;
-    flex: 0 0 auto;
-  }
-
-  .hero-links svg {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-  }
-
-  .hero-links img {
-    display: block;
-    border-radius: 2px;
-  }
-
-
-  /* =========================================================
-     Biography
-  ========================================================= */
-
-  .biography {
-    width: 100%;
-    max-width: var(--bio-width);
-    margin: 0 auto;
-    padding: var(--bio-padding-top) 24px var(--bio-padding-bottom);
-
-    flex: 1 1 auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    text-align: left;
-  }
-
-  /* [中文] ｜ [English] */
-  .language-switch {
-    margin-bottom: 12px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-
     font-size: 14px;
-    line-height: 1.2;
-    color: #777777;
+    background: rgba(255,255,255,0.12);
+    transition: all 0.18s ease;
   }
-
-  .language-switch button {
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: #777777;
-    cursor: pointer;
-  }
-
-  .language-switch button:hover,
-  .language-switch button.active {
-    color: #111111;
-  }
-
-  .language-switch button.active {
-    font-weight: 600;
-  }
-
-  .language-switch .separator {
-    color: #b3b3b3;
-  }
-
-  .bio-copy {
-    display: none;
-  }
-
-  .bio-copy.active {
-    display: block;
-  }
-
-  .biography p {
-    font-size: var(--bio-font-size);
-    line-height: var(--bio-line-height);
-    color: #333333;
-    margin-bottom: var(--bio-paragraph-gap);
-  }
-
-  .biography p:last-child {
-    margin-bottom: 0;
-  }
-
+  .hero-links a:hover { background: #ffffff; color: #191919 !important; }
+  .hero-links a .hf { font-size: 14px; line-height: 1; }
 
   /* =========================================================
-     My Papers
-     文字在上，左右装饰花纹在下
+     SECTION HEADINGS
   ========================================================= */
+  section { padding-top: 26px; }
+  #biography { padding-top: 14px; }
 
-  .papers-title {
-    width: 100%;
-    margin: 0 auto;
-    padding: var(--papers-title-top-gap) 24px 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--ink);
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 16px;
   }
-
-  .papers-title .text {
-    font-size: var(--papers-title-size);
-    letter-spacing: 0.18em;
-    text-transform: lowercase;
-    white-space: nowrap;
-    color: #1a1a1a;
-    line-height: 1.1;
+  h2 .sub {
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--ink-mute);
+    margin-left: 8px;
   }
-
-  .papers-title .lines {
-    width: 100%;
-    margin-top: var(--papers-title-line-gap);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--papers-line-center-gap);
-  }
-
-  .papers-title .line {
-    position: relative;
-    width: min(var(--papers-line-width), 38vw);
-    height: 18px;
-    flex: 0 1 var(--papers-line-width);
-  }
-
-  /* 细线改为更轻的叶片 / 菱形装饰花纹 */
-  .papers-title .line::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 9px;
-    opacity: 0.9;
-    background:
-      radial-gradient(ellipse at center, var(--papers-ornament-dot-color) 0 1.2px, transparent 1.5px)
-        center / 20px 9px repeat-x,
-      linear-gradient(
-        to right,
-        transparent 0%,
-        var(--papers-ornament-color) 16%,
-        rgba(74,74,74,0.34) 50%,
-        var(--papers-ornament-color) 84%,
-        transparent 100%
-      ) center / 100% 1px no-repeat;
-  }
-
-  .papers-title .line::after {
-    content: "◇";
-    position: absolute;
-    top: 50%;
-    right: 7%;
-    transform: translateY(-51%);
-    color: var(--papers-ornament-color);
-    font-family: Georgia, serif;
-    font-size: 13px;
-    line-height: 1;
-    background: #ffffff;
-    padding: 0 5px;
-  }
-
-  .papers-title .line.left {
-    transform: scaleX(-1);
-  }
-
 
   /* =========================================================
-     Papers 图片网格
-     所有屏幕始终每张 25% 宽，也就是一排 4 张
+     BIOGRAPHY
   ========================================================= */
+  .bio p { margin-bottom: 12px; text-align: justify; }
+  .bio p:last-of-type { margin-bottom: 0; }
 
-  .gallery {
-    width: 100%;
-    margin-top: var(--papers-gallery-gap);
+  .metrics {
+    margin-top: 16px;
     display: flex;
     flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .gallery .item {
-    position: relative;
-    width: var(--paper-width);
-    flex: 0 0 var(--paper-width);
-    aspect-ratio: var(--paper-aspect-ratio);
-    height: auto;
-    min-width: 0;
+  .metric {
+    padding: 5px 11px;
+    border: 1px solid var(--rule);
+    background: #fbfbfb;
+    font-size: 13px;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+  .metric b { font-size: 15px; color: var(--ink); }
+  .metric .fa-star { color: #c79500; font-size: 11px; }
 
-    overflow: hidden;
-    line-height: 0;
+  /* =========================================================
+     NEWS
+  ========================================================= */
+  .news { list-style: none; }
+
+  .news li {
+    display: flex;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 14.5px;
+    line-height: 1.62;
+  }
+
+  .news .when {
+    flex: 0 0 62px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--ink-mute);
+    padding-top: 1px;
+  }
+
+  .news .what { flex: 1 1 auto; min-width: 0; }
+
+  /* the first news items carry a picture */
+  .news li.featured { padding: 12px 0; border-bottom: 1px dotted #e8e8e8; }
+  .news li.featured:first-child { padding-top: 4px; }
+
+  .news li.featured .what {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .news li.featured .text { flex: 1 1 auto; min-width: 0; }
+
+  .news .news-img {
+    flex: 0 0 190px;
+    width: 190px;
+    border: 1px solid var(--rule);
+    padding: 2px;
+    background: #fff;
+    display: block;
+  }
+
+  #news-more { display: none; }
+  #news-more.open { display: block; }
+
+  .more-btn {
+    margin-top: 10px;
+    border: 1px solid var(--rule);
+    background: #fbfbfb;
+    padding: 4px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--ink-soft);
     cursor: pointer;
   }
+  .more-btn:hover { background: #f2f2f2; }
 
-  .gallery .item img.paper-image {
-    position: absolute;
-    inset: 0;
+  /* =========================================================
+     PUBLICATIONS
+  ========================================================= */
+  .pub {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px dotted #e8e8e8;
+  }
+  .pub:last-of-type { border-bottom: 0; }
 
-    width: 100%;
-    height: 100%;
+  .pub .thumb {
+    flex: 0 0 250px;
+    width: 250px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: #fafafa;
+  }
 
-    object-fit: cover;
+  .pub .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .pub .info { flex: 1 1 auto; min-width: 0; }
+
+  .pub .title {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.35;
+    color: var(--ink) !important;
+    text-decoration: none;
     display: block;
+    margin-bottom: 3px;
+  }
+  .pub .title:hover { color: var(--link) !important; text-decoration: underline; }
 
-    transition:
-      opacity 0.3s ease,
-      transform 0.5s ease;
+  .pub .authors { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+  .pub .venue {
+    margin-top: 2px;
+    font-size: 13.5px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .pub .venue .flag {
+    font-style: normal;
+    font-weight: bold;
+    color: #b32d1f;
+    margin-left: 5px;
   }
 
-  .gallery .item img.base {
-    opacity: 1;
-  }
-
-  .gallery .item img.hover {
-    opacity: 0;
-  }
-
-  .gallery .item:hover img.base {
-    opacity: 0;
-  }
-
-  .gallery .item:hover img.hover {
-    opacity: 1;
-  }
-
-  .gallery .item:hover img.paper-image {
-    transform: scale(1.015);
-  }
-
-
-  /* =========================================================
-     Paper 标题与日期
-  ========================================================= */
-
-  .gallery .item .label.title {
-    position: absolute;
-    left: 14px;
-    top: 12px;
-    z-index: 3;
-
-    max-width: calc(100% - 90px);
-
-    color: #444444;
-    line-height: 1.2;
-    pointer-events: none;
-
-    font-size: clamp(8px, 0.95vw, var(--paper-title-size));
-    font-weight: 600;
-
-    text-shadow:
-      0 1px 2px rgba(255, 255, 255, 0.70),
-      0 0 7px rgba(255, 255, 255, 0.46);
-  }
-
-  .paper-date {
-    position: absolute;
-    right: 12px;
-    top: 12px;
-    z-index: 3;
-
-    padding: 5px 9px;
-    border-radius: 999px;
-
-    color: #4d4d4d;
-    font-size: clamp(8px, 0.82vw, var(--paper-date-size));
-    line-height: 1;
-    letter-spacing: 0.02em;
-
-    background: rgba(255, 255, 255, 0.52);
-    -webkit-backdrop-filter: blur(10px) saturate(135%);
-    backdrop-filter: blur(10px) saturate(135%);
-    border: 1px solid rgba(255, 255, 255, 0.74);
-
-    box-shadow:
-      0 6px 16px rgba(255,255,255,0.25),
-      inset 0 1px 0 rgba(255,255,255,0.5);
-  }
-
-
-  /* =========================================================
-     Paper 底部白色完整圆角毛玻璃统计框
-  ========================================================= */
-
-  .paper-stats {
-    position: absolute;
-    left: var(--stats-inset-x);
-    right: var(--stats-inset-x);
-    bottom: var(--stats-bottom-offset);
-    z-index: 4;
-
-    min-height: var(--stats-height);
-    padding: 9px var(--stats-padding-x);
-
+  .pub .links {
+    margin-top: 6px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--stats-gap);
-
-    color: #303030;
-    font-size: clamp(8px, 0.88vw, var(--stats-font-size));
-    line-height: 1;
-    white-space: nowrap;
-
-    border-radius: var(--stats-radius);
-
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(255,255,255, var(--stats-glass-alpha-top)),
-        rgba(255,255,255, var(--stats-glass-alpha))
-      );
-
-    -webkit-backdrop-filter:
-      blur(var(--stats-glass-blur))
-      saturate(140%);
-
-    backdrop-filter:
-      blur(var(--stats-glass-blur))
-      saturate(140%);
-
-    border: 1px solid rgba(255,255,255,0.82);
-
-    box-shadow:
-      0 10px 28px rgba(255,255,255,0.30),
-      inset 0 1px 0 rgba(255,255,255,0.54);
+    flex-wrap: wrap;
+    gap: 5px 8px;
+    font-size: 13px;
   }
+  .pub .links a { color: var(--resource); text-decoration: none; }
+  .pub .links a:hover { text-decoration: underline; }
+  .pub .links .sep { color: #cccccc; }
+  .pub .links img { height: 19px; vertical-align: middle; }
 
-  .paper-stats .metric {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+  .pub .tldr { margin-top: 7px; font-size: 13.5px; line-height: 1.6; color: #555; }
+
+  /* compact list for the remaining papers */
+  .other { list-style: none; margin-top: 4px; }
+
+  .other li {
+    padding: 7px 0 7px 16px;
+    border-bottom: 1px dotted #eeeeee;
+    font-size: 13.5px;
+    line-height: 1.55;
+    position: relative;
   }
-
-  .paper-stats .metric-label {
-    font-weight: 600;
+  .other li:last-child { border-bottom: 0; }
+  .other li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: var(--ink-mute);
   }
-
-  .paper-stats .metric.star .metric-symbol,
-  .paper-stats .metric.star .metric-label,
-  .paper-stats .metric.star .metric-value {
-    color: #c79500;
-  }
-
-  .paper-stats .metric.citations .metric-label,
-  .paper-stats .metric.citations .metric-value {
-    color: #2b6ee9;
-  }
-
-  .paper-stats .metric-value {
-    color: #363636;
-  }
-
+  .other .name { font-weight: bold; color: var(--ink); }
+  .other .meta { color: var(--ink-mute); font-size: 13px; }
+  .other .meta em { font-style: italic; color: var(--ink-soft); }
 
   /* =========================================================
-     手机 / 小屏幕
-     注意：Paper 仍然固定 25%，不会改成 50%
+     ACTIVITIES
   ========================================================= */
+  .activity {
+    display: flex;
+    gap: 20px;
+    padding: 11px 0;
+    border-bottom: 1px dotted #e8e8e8;
+  }
+  .activity:last-of-type { border-bottom: 0; }
 
-  @media (max-width: 768px) {
+  .activity .head {
+    flex: 0 0 180px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--ink);
+  }
+  .activity .head i { color: var(--ink-mute); font-size: 13px; margin-right: 6px; }
 
-    .above-fold {
-      height: auto;
-      min-height: var(--intro-height);
-      overflow: visible;
-    }
+  .activity .body { flex: 1 1 auto; font-size: 14px; }
+  .activity .body ul { list-style: none; }
+  .activity .body li { padding: 2px 0; }
+  .activity .body li::before { content: "– "; color: var(--ink-mute); }
 
-    .biography {
-      padding:
-        max(16px, var(--bio-padding-top))
-        20px
-        max(18px, var(--bio-padding-bottom));
-    }
-
-    .biography p {
-      font-size: clamp(14px, 3.7vw, var(--bio-font-size));
-      line-height: 1.72;
-      margin-bottom: 12px;
-    }
-
-    .papers-title {
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-
-    .papers-title .line {
-      width: min(var(--papers-line-width), 34vw);
-    }
-
-    .gallery .item .label.title {
-      left: 6px;
-      top: 6px;
-      max-width: calc(100% - 62px);
-    }
-
-    .paper-date {
-      right: 6px;
-      top: 6px;
-      padding: 4px 6px;
-    }
-
-    .paper-stats {
-      left: 6px;
-      right: 6px;
-      bottom: 6px;
-      min-height: 30px;
-      padding: 4px 5px;
-      gap: 5px;
-      border-radius: 9px;
-    }
+  /* =========================================================
+     FOOTER
+  ========================================================= */
+  footer {
+    margin-top: 36px;
+    padding: 18px 0 34px;
+    border-top: 1px solid var(--rule);
+    font-size: 12.5px;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+  @media (max-width: 880px) {
+    :root {
+      --hero-height: 38vh;
+      --hero-min-height: 250px;
+      --name-x: 7%;
+    }
+
+    .wrap { padding: 0 16px; }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      left: 0; right: 0; top: 56px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--rule);
+      padding: 4px 16px 12px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      padding: 9px 0;
+      border-bottom: 1px solid #f2f2f2;
+      color: var(--ink-soft) !important;
+      text-shadow: none !important;
+    }
+    .nav-cta {
+      margin-top: 8px;
+      text-align: center;
+      border: 1px solid #b9c8dd !important;
+      background: #eef3f9 !important;
+      color: var(--link) !important;
+    }
+    .nav-toggle { display: inline-block; }
+
+    .bio p { text-align: left; }
+
+    .news li.featured .what { flex-direction: column; }
+    .news .news-img { flex: 0 0 auto; width: 100%; max-width: 320px; }
+
+    .pub { flex-direction: column; gap: 12px; }
+    .pub .thumb { flex: 0 0 auto; width: 100%; }
+
+    .activity { flex-direction: column; gap: 4px; }
+    .activity .head { flex: 0 0 auto; }
+  }
 </style>
 </head>
 
 <body>
 
-  <!-- =======================================================
-       顶部介绍
-  ======================================================== -->
+<!-- =========================================================
+     TOP BAR
+========================================================= -->
+<nav class="topbar" id="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">Zhifei Xie</a>
 
-  <div class="above-fold">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
 
-    <!-- 顶部图片 -->
-    <header class="hero">
-
-      <img src="top.png" alt="">
-
-      <div class="hero-name">
-
-        <span class="name">
-          谢之非 Xie Zhifei
-        </span>
-
-        <span class="affil">
-          PhD, Nanyang Technological University
-        </span>
-
-        <div class="hero-links">
-
-          <a href="mailto:YOUR_EMAIL" aria-label="Email">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-              <path d="M4 7l8 6 8-6"></path>
-            </svg>
-            <span>Email</span>
-          </a>
-
-          <span class="separator">|</span>
-
-          <a
-            href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Google Scholar"
-          >
-            <img
-              src="https://www.google.com/favicon.ico"
-              alt="Google"
-            >
-            <span>Google Scholar</span>
-          </a>
-
-        </div>
-
-      </div>
-
-    </header>
-
-
-    <!-- Biography -->
-    <section class="biography">
-
-      <div class="language-switch" aria-label="Biography language">
-        <button class="active" type="button" data-lang="zh">[中文]</button>
-        <span class="separator">｜</span>
-        <button type="button" data-lang="en">[English]</button>
-      </div>
-
-      <!-- 中文简介 -->
-      <div class="bio-copy active" data-bio="zh">
-        <p>
-          你好，我是谢之非，祖籍安徽，在北京长大。目前，我是 LV-Lab 的博士生，导师为颜水成教授和苗春燕教授。在此之前，我本科毕业于北京理工大学，后保研至清华大学，并曾在千问实习，由徐进老师指导。
-        </p>
-
-        <p>
-          我的研究方向主要包括以音频为核心的多模态理解和语音智能体。我对研究工作的要求是，它必须具有足够的价值，并秉持这一理念完成了 Mini-Omni 等一系列工作。未来，我将持续探索可实时交互的多模态模型，围绕交互性、鲁棒性、推理能力和主动性等问题展开研究。
-        </p>
-
-        <p>
-          除此之外，我热爱交响乐，是一名拥有 16 年经验的乐手。我也非常喜欢动物。我的很多工作都以柴犬作为头像，因为我很怀念一只陪伴我长大的柴犬，它叫瓜瓜。
-        </p>
-      </div>
-
-      <!-- English biography -->
-      <div class="bio-copy" data-bio="en">
-        <p>
-          Hi, I am Zhifei Xie. My family is originally from Anhui, and I grew up in Beijing. I am currently a PhD student at LV-Lab, advised by Prof. Shuineng Yan and Prof. Chunyan Miao. Before that, I received my bachelor's degree from Beijing Institute of Technology, was admitted to Tsinghua University for graduate study, and interned at Qwen under the supervision of Jin Xu.
-        </p>
-
-        <p>
-          My research mainly focuses on audio-centric multimodal understanding and speech agents. I believe research should provide sufficient real-world value, and this principle has guided a series of projects including Mini-Omni. Going forward, I will continue exploring real-time interactive multimodal models, with particular interests in interactivity, robustness, reasoning, and proactivity.
-        </p>
-
-        <p>
-          Outside research, I love symphonic music and have 16 years of experience as an orchestral musician. I also love animals. Many of my projects use a Shiba Inu as their avatar because I deeply miss Guagua, a Shiba Inu who grew up with me.
-        </p>
-      </div>
-
-    </section>
-
+    <div class="nav-links" id="nav-links">
+      <a href="#biography">About</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#activities">Activities</a>
+      <a class="nav-cta" href="papers.html">Papers Gallery</a>
+    </div>
   </div>
+</nav>
 
 
-  <!-- =======================================================
-       My Papers
-       文字在装饰花纹之上
-  ======================================================== -->
+<!-- =========================================================
+     HERO BANNER  — replace top.png with your own photo
+========================================================= -->
+<header class="hero">
+  <img src="top.png" alt="" onerror="this.style.display='none'">
 
-  <div class="papers-title">
+  <div class="hero-name">
+    <span class="name">Zhifei Xie</span>
+    <span class="affil">Ph.D. Student, LV-Lab, Nanyang Technological University</span>
 
-    <span class="text">my papers</span>
+    <div class="hero-links">
+      <a href="mailto:zhifei001@e.ntu.edu.sg" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=zhifei+xie&oq=" target="_blank" rel="noopener" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      <a href="https://github.com/xzf-thu" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://huggingface.co/zhifeixie" target="_blank" rel="noopener" title="Hugging Face"><span class="hf">🤗</span></a>
+      <a href="files/CV.pdf" target="_blank" rel="noopener" title="CV"><i class="fa-regular fa-file-lines"></i></a>
+    </div>
+  </div>
+</header>
 
-    <div class="lines" aria-hidden="true">
-      <span class="line left"></span>
-      <span class="line right"></span>
+
+<div class="wrap">
+
+  <!-- =========================================================
+       BIOGRAPHY
+  ========================================================= -->
+  <section id="biography" class="bio">
+    <h2>Biography</h2>
+
+    <p>
+      I am a Ph.D. student at <b>LV-Lab</b>,
+      <b><a href="https://www.ntu.edu.sg/" target="_blank" rel="noopener">Nanyang Technological University</a></b>,
+      advised by <b><a href="https://scholar.google.com/citations?user=DNuiPHwAAAAJ&hl=en" target="_blank" rel="noopener">Prof. Shuicheng Yan</a></b>
+      and <b>Prof. Chunyan Miao</b>. Before that I received my bachelor's degree from
+      <b><a href="https://english.bit.edu.cn/" target="_blank" rel="noopener">Beijing Institute of Technology</a></b>,
+      was admitted to <b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b>
+      for graduate study, and interned at the
+      <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b>
+      under the supervision of Dr. Jin Xu.
+    </p>
+
+    <p>
+      My research focuses on <b>large audio language models</b> and <b>real-time speech interaction</b> —
+      building models that hear, think and speak at the same time. I led the
+      <b><a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Mini-Omni</a></b> series,
+      among the first open-source end-to-end speech-to-speech conversational models, together with
+      <b>Audio-Reasoner</b>, <b>Mini-Omni-Reasoner</b>, <b>Mega-ASR</b> and the <b>Audio Interaction Model</b>.
+      I hold research to one bar: it has to be worth doing. Going forward I keep pushing on always-on
+      multimodal interaction, with a focus on <b>interactivity, robustness, reasoning and proactivity</b>.
+    </p>
+
+    <p>
+      Outside the lab I served as founder &amp; CEO of <b>Pask.ai</b>, advise industry teams on speech
+      technology, have played in symphony orchestras for 16 years, and love animals — many of my projects
+      use a Shiba Inu avatar in memory of Guagua, who grew up with me.
+    </p>
+
+    <div class="metrics">
+      <div class="metric"><b id="m-citations">605</b> Citations</div>
+      <div class="metric"><i class="fa-solid fa-star"></i> <b id="m-stars">&mdash;</b> GitHub Stars</div>
+      <div class="metric"><b>7</b> Open-source models &amp; datasets</div>
+      <div class="metric"><b>#1</b> Paper of the Day on Hugging Face</div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================
+       NEWS
+       EDIT: months below are placeholders — correct them.
+       EDIT: featured images live in news/*.jpg (any size, 4:3-ish looks best).
+  ========================================================= -->
+  <section id="news">
+    <h2>News</h2>
+
+    <ul class="news">
+
+      <li class="featured">
+        <span class="when">08/2026</span>
+        <div class="what">
+          <div class="text">
+            🎉 Invited to serve as a <b>speech technology advisor</b> at
+            <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi</a></b>,
+            and to give an invited talk at <b>Xiaomi AI Lab</b> on real-time audio interaction.
+          </div>
+          <img class="news-img" src="news/xiaomi.jpg" alt="Xiaomi AI Lab talk" onerror="this.style.display='none'">
+        </div>
+      </li>
+
+      <li class="featured">
+        <span class="when">06/2026</span>
+        <div class="what">
+          <div class="text">
+            🏅 <b><a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b>
+            takes the <b>gold medal</b> on the
+            <b><a href="https://huggingface.co/spaces/treble-technologies/ffasr" target="_blank" rel="noopener">FFASR Leaderboard</a></b>,
+            the far-field ASR benchmark run by
+            <a href="https://www.treble.tech/" target="_blank" rel="noopener">Treble Technologies</a> and
+            <a href="https://huggingface.co/blog/ffasr-leaderboard" target="_blank" rel="noopener">Hugging Face</a>.
+          </div>
+          <img class="news-img" src="news/ffasr.jpg" alt="FFASR leaderboard" onerror="this.style.display='none'">
+        </div>
+      </li>
+
+      <li class="featured">
+        <span class="when">06/2026</span>
+        <div class="what">
+          <div class="text">
+            🎤 Invited to give a talk at
+            <b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b>,
+            Asia's largest AI conference, held at Marina Bay Sands on 10–11 June.
+          </div>
+          <img class="news-img" src="news/superai.jpg" alt="SuperAI Singapore" onerror="this.style.display='none'">
+        </div>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🎉 <b><a href="https://huggingface.co/papers/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b>
+          is selected as the <b>#1 Paper of the Day</b> on
+          <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face</a>.</span>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🤝 Invited to serve as an <b>advisor</b> at
+          <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b>,
+          and to give a technical talk there on speech interaction for embodied agents.</span>
+      </li>
+
+    </ul>
+
+    <!-- everything below is text only -->
+    <ul class="news" id="news-more">
+
+      <li>
+        <span class="when">06/2026</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">Audio Interaction Model</a></b>
+          is released — the next generation of LALMs, with the <b>SoundFlow</b> framework, the
+          <b>StreamAudio-2M</b> dataset and new benchmarks for proactive audio intervention.
+          <a href="https://github.com/xzf-thu/Audio-Interaction" target="_blank" rel="noopener">Code</a></span>
+      </li>
+
+      <li>
+        <span class="when">06/2026</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2606.07229" target="_blank" rel="noopener">MMAE</a></b>,
+          a massive multitask audio editing benchmark, is released.</span>
+      </li>
+
+      <li>
+        <span class="when">06/2026</span>
+        <span class="what">🎤 Invited talk at
+          <b><a href="https://klingai.com/" target="_blank" rel="noopener">Kling AI (可灵)</a></b>
+          on audio-visual generation and real-time interaction.</span>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b> is released —
+          the first foundation ASR built for the real world: 7 atomic acoustic conditions, 54 compound
+          scenarios, 2.6M samples and up to <b>~30% gains</b> over SOTA in the wild.
+          <a href="https://github.com/xzf-thu/Mega-ASR" target="_blank" rel="noopener">Code</a></span>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🎉 <b>Deep-Reporter</b>, deep research for grounded multimodal long-form generation,
+          is accepted by <b><a href="https://2026.aclweb.org/" target="_blank" rel="noopener">ACL 2026</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">04/2026</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://shokz.com/" target="_blank" rel="noopener">Shokz (韶音)</a></b>
+          on audio interaction for wearable devices.</span>
+      </li>
+
+      <li>
+        <span class="when">04/2026</span>
+        <span class="what">🤝 Invited research exchange with
+          <b><a href="https://coai.cs.tsinghua.edu.cn/hml/" target="_blank" rel="noopener">Prof. Minlie Huang</a></b>
+          (<a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a>, CoAI Group).</span>
+      </li>
+
+      <li>
+        <span class="when">03/2026</span>
+        <span class="what">🤝 Invited technical exchange at
+          <b><a href="https://www.plaud.ai/" target="_blank" rel="noopener">PLAUD.AI</a></b>
+          on always-on recording and on-device speech understanding.</span>
+      </li>
+
+      <li>
+        <span class="when">02/2026</span>
+        <span class="what">🤝 Invited technical exchange at
+          <b><a href="https://www.agora.io/en/" target="_blank" rel="noopener">Agora (声网)</a></b>
+          on real-time conversational AI.</span>
+      </li>
+
+      <li>
+        <span class="when">02/2026</span>
+        <span class="what">📰 <b>PASK</b> is featured by
+          <b><a href="#" target="_blank" rel="noopener">AI Era (新智元)</a></b>.
+          <!-- EDIT: paste the 新智元 article URL in the href above --></span>
+      </li>
+
+      <li>
+        <span class="when">01/2026</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2601.10547" target="_blank" rel="noopener">HeartMula</a></b>,
+          a family of open-sourced music foundation models, is released.</span>
+      </li>
+
+      <li>
+        <span class="when">09/2025</span>
+        <span class="what">🎉 <b><a href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">Audio-Reasoner</a></b>
+          is accepted by <b><a href="https://2025.emnlp.org/" target="_blank" rel="noopener">EMNLP 2025</a></b> (Main Conference).</span>
+      </li>
+
+      <li>
+        <span class="when">08/2025</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">Mini-Omni-Reasoner</a></b>
+          is released, pioneering the <b>token-level "thinking-in-speaking"</b> paradigm, and is covered by
+          <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b>.
+          <!-- EDIT: you can point the Synced link at the exact article --></span>
+      </li>
+
+      <li>
+        <span class="when">07/2025</span>
+        <span class="what">🎉 <b>PASK</b>: Providing Answer before AsKing toward Proactive AI Agent is accepted by
+          <b><a href="https://acmmm2025.org/" target="_blank" rel="noopener">ACM MM 2025</a></b> (Demo).</span>
+      </li>
+
+      <li>
+        <span class="when">03/2025</span>
+        <span class="what">🎉 <b><a href="https://github.com/xzf-thu/Audio-Reasoner" target="_blank" rel="noopener">Audio-Reasoner</a></b>
+          and the <b>CoTA</b> dataset (1.2M reasoning-rich samples) are released, setting state of the art on
+          MMAU-mini (+25.42%), AIR-Bench and MELD.</span>
+      </li>
+
+      <li>
+        <span class="when">10/2024</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">Mini-Omni2</a></b>
+          is released — an open-source GPT-4o-style assistant with vision, speech and duplex interruption.
+          <a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Code</a></span>
+      </li>
+
+      <li>
+        <span class="when">09/2024</span>
+        <span class="what">📰 <b>Mini-Omni</b> is covered by
+          <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">08/2024</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">Mini-Omni</a></b>
+          is released and becomes the <b>#1 Paper of the Day</b> on
+          <a href="https://huggingface.co/papers/2408.16725" target="_blank" rel="noopener">Hugging Face</a>:
+          the first open-source end-to-end model that can hear, talk and think in streaming.</span>
+      </li>
+
+      <li>
+        <span class="when">08/2024</span>
+        <span class="what">🎉 <b>DreamFactory</b>, a multi-agent framework for multi-scene long video generation, is released.</span>
+      </li>
+
+    </ul>
+
+    <button class="more-btn" id="news-btn">Show earlier news ▾</button>
+  </section>
+
+
+  <!-- =========================================================
+       SELECTED PUBLICATIONS
+  ========================================================= -->
+  <section id="publications">
+    <h2>Selected Publications
+      <span class="sub">* equal contribution &nbsp;|&nbsp; full list on
+        <a href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=zhifei+xie&oq=" target="_blank" rel="noopener">Google Scholar</a>
+      </span>
+    </h2>
+
+    <!-- ---------- Audio Interaction Model ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Audio-Interaction.png" alt="Audio Interaction Model"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">Audio Interaction Model</a>
+        <div class="authors">
+          <b>Zhifei Xie</b>, Zihang Liu, Ze An, Xiaobin Hu, Yue Liao, Ziyang Ma,
+          Dongchao Yang, Mingbao Lin, Deheng Ye, Shuicheng Yan, Chunyan Miao
+        </div>
+        <div class="venue">arXiv, 2026 <span class="flag">(Next generation of LALMs)</span></div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/papers/2606.05121" target="_blank" rel="noopener">HF paper</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/datasets/zhifeixie/StreamAudio-2M" target="_blank" rel="noopener">Dataset</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Audio-Interaction" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/xzf-thu/Audio-Interaction.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          A unified streaming LALM that listens to sound, environment and instructions in real time and decides,
+          at every moment, whether to stay silent or speak — realised end to end by <b>SoundFlow</b>.
+        </p>
+      </div>
     </div>
 
-  </div>
-
-
-  <!-- =======================================================
-       Papers Gallery
-  ======================================================== -->
-
-  <section class="gallery" id="gallery"></section>
-
-
-  <!-- =======================================================
-       Papers 数据及自动生成
-  ======================================================== -->
-
-  <script>
-
-    /*
-      每个项目现在支持：
-
-      title:
-        项目名称
-
-      file:
-        不写扩展名，会加载：
-        file.png
-        file_hover.png
-
-      stars:
-        GitHub Stars
-
-      citations:
-        Citation 数量
-
-      date:
-        右上角时间，精确到月份，例如 2024.08；请为每篇论文填写真实月份
-
-      url:
-        点击卡片跳转地址
-    */
-
-    const works = [
-
-      {
-        title: "Audio Interaction Model",
-        file: "images/Audio-Interaction",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      },
-
-      {
-        title: "Mega-ASR",
-        file: "images/Mega-ASR",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      },
-
-      {
-        title: "Mini-Omni-Reasoner",
-        file: "images/Mini-Omni-Reasoner",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      },
-
-      {
-        title: "Audio-Reasoner",
-        file: "images/audio-reasoner",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      },
-
-      {
-        title: "Mini-Omni2",
-        file: "images/Mini-Omni2",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      },
-
-      {
-        title: "Mini-Omni",
-        file: "images/Mini-Omni",
-        stars: "xxx",
-        citations: "xxx",
-        date: "YYYY.MM",
-        url: ""
-      }
-
-    ];
-
-
-    /* ---------- Biography 中英文切换 ---------- */
-
-    const languageButtons =
-      document.querySelectorAll(".language-switch button");
-
-    const biographyCopies =
-      document.querySelectorAll(".bio-copy");
-
-    languageButtons.forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        const lang = button.dataset.lang;
-
-        languageButtons.forEach(item => {
-          item.classList.toggle(
-            "active",
-            item.dataset.lang === lang
-          );
-        });
-
-        biographyCopies.forEach(copy => {
-          copy.classList.toggle(
-            "active",
-            copy.dataset.bio === lang
-          );
-        });
-
-        document.documentElement.lang = lang;
-
-      });
-
-    });
-
-
-    /* ---------- Papers 自动生成 ---------- */
-
-    const gallery =
-      document.getElementById("gallery");
-
-
-    works.forEach(work => {
-
-      const item =
-        document.createElement("div");
-
-      item.className = "item";
-
-
-      item.innerHTML = `
-
-        <img
-          class="paper-image base"
-          src="${work.file}.png"
-          alt="${work.title}"
-        >
-
-        <img
-          class="paper-image hover"
-          src="${work.file}_hover.png"
-          alt="${work.title}"
-          onerror="
-            this.onerror = null;
-            this.src = '${work.file}.png';
-          "
-        >
-
-        <span class="label title">
-          ${work.title}
-        </span>
-
-        <span class="paper-date">
-          ${work.date}
-        </span>
-
-        <div class="paper-stats">
-
-          <span class="metric star">
-            <span class="metric-symbol">★</span>
-            <span class="metric-value">${work.stars}</span>
-            <span class="metric-label">Stars</span>
-          </span>
-
-          <span class="metric citations">
-            <span class="metric-label">Cited by</span>
-            <span class="metric-value">${work.citations}</span>
-          </span>
-
+    <!-- ---------- Mega-ASR ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Mega-ASR.png" alt="Mega-ASR"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR: Towards In-the-wild² Speech Recognition via Scaling up Real-world Acoustic Simulation</a>
+        <div class="authors">
+          <b>Zhifei Xie</b>, Kaiyu Pang, Haobin Zhang, Deheng Ye, Xiaobin Hu, Shuicheng Yan, Chunyan Miao
         </div>
+        <div class="venue">arXiv, 2026 <span class="flag">(Gold medal, FFASR Leaderboard)</span></div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/zhifeixie/Mega-ASR" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Voices-in-the-Wild-Bench" target="_blank" rel="noopener">Benchmark</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Mega-ASR" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/xzf-thu/Mega-ASR.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          Breaking the acoustic robustness bottleneck with <b>Voices-in-the-Wild-2M</b>: 7 classic acoustic phenomena,
+          54 physically plausible compound scenarios, and WER-gated policy optimisation.
+        </p>
+      </div>
+    </div>
 
-      `;
+    <!-- ---------- Mini-Omni-Reasoner ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Mini-Omni-Reasoner.png" alt="Mini-Omni-Reasoner"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">Mini-Omni-Reasoner: Token-Level Thinking-in-Speaking in Large Speech Models</a>
+        <div class="authors">
+          <b>Zhifei Xie</b>, Ziyang Ma, Zihang Liu, Kaiyu Pang, Hongyu Li, Jialin Zhang,
+          Yue Liao, Deheng Ye, Chunyan Miao, Shuicheng Yan
+        </div>
+        <div class="venue">arXiv, 2025</div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Mini-Omni-Reasoner" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/xzf-thu/Mini-Omni-Reasoner.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          Instead of thinking before speaking, the model interleaves silent reasoning tokens with spoken response
+          tokens — fluent, low-latency speech that stays logically grounded.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- Audio-Reasoner ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/audio-reasoner.png" alt="Audio-Reasoner"></div>
+      <div class="info">
+        <a class="title" href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">Audio-Reasoner: Improving Reasoning Capability in Large Audio Language Models</a>
+        <div class="authors">
+          <b>Zhifei Xie</b>, Mingbao Lin, Zihang Liu, Pengcheng Wu, Shuicheng Yan, Chunyan Miao
+        </div>
+        <div class="venue">EMNLP, 2025 <span class="flag">(Main Conference)</span></div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2503.02318" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">ACL Anthology</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/zhifeixie/Audio-Reasoner" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Audio-Reasoner" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/xzf-thu/Audio-Reasoner.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          The first large audio language model with native in-depth thinking. Trained on <b>CoTA</b>
+          (1.2M reasoning-rich samples), it lifts MMAU-mini by <b>+25.42%</b>.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- Mini-Omni2 ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Mini-Omni2.png" alt="Mini-Omni2"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">Mini-Omni2: Towards Open-source GPT-4o with Vision, Speech and Duplex Capabilities</a>
+        <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
+        <div class="venue">arXiv, 2024</div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/gpt-omni/mini-omni2" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/gpt-omni/mini-omni2.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          An omni-interactive assistant that understands image, audio and text, replies with real-time voice,
+          and can be interrupted mid-sentence — no extra ASR or TTS required.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- Mini-Omni ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Mini-Omni.png" alt="Mini-Omni"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">Mini-Omni: Language Models Can Hear, Talk While Thinking in Streaming</a>
+        <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
+        <div class="venue">arXiv, 2024 <span class="flag">(#1 Paper of the Day, Hugging Face)</span></div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/gpt-omni/mini-omni" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/spaces/gpt-omni/mini-omni" target="_blank" rel="noopener">Demo</a> <span class="sep">/</span>
+          <a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Code</a>
+          <img src="https://img.shields.io/github/stars/gpt-omni/mini-omni.svg?style=social" alt="GitHub stars">
+        </div>
+        <p class="tldr">
+          The first open-source end-to-end model with direct speech-to-speech capability, using text-instructed
+          speech generation and batch-parallel decoding for real-time conversation.
+        </p>
+      </div>
+    </div>
+
+  </section>
 
 
-      if (work.url) {
+  <!-- =========================================================
+       OTHER PUBLICATIONS
+  ========================================================= -->
+  <section id="more-publications">
+    <h2>Other Publications</h2>
 
-        item.addEventListener(
-          "click",
-          () => {
-            window.open(
-              work.url,
-              "_blank",
-              "noopener,noreferrer"
-            );
-          }
-        );
+    <ul class="other">
+      <li>
+        <span class="name">Deep-Reporter: Deep Research for Grounded Multimodal Long-Form Generation</span><br>
+        <span class="meta">F. Ye*, <b>Z. Xie</b>*, Y. Hu*, Y. Yin, S. Huang, S. Dong, J. Bao, S. Yan &nbsp;·&nbsp; <em>ACL 2026</em></span>
+      </li>
+      <li>
+        <span class="name">MMAE: A Massive Multitask Audio Editing Benchmark</span><br>
+        <span class="meta">Z. Ma, R. Yan, R. Xu, J. Fang, Z. Niu, Y.-W. Chao, W. Tu, T. Wang, Q. Chen, <b>Z. Xie</b>, et al. &nbsp;·&nbsp;
+          <em><a href="https://arxiv.org/abs/2606.07229" target="_blank" rel="noopener">arXiv 2026</a></em></span>
+      </li>
+      <li>
+        <span class="name">HeartMula: A Family of Open Sourced Music Foundation Models</span><br>
+        <span class="meta">D. Yang, Y. Xie, Y. Yin, Z. Wang, X. Yi, G. Zhu, X. Weng, Z. Xiong, Y. Ma, <b>Z. Xie</b>, et al. &nbsp;·&nbsp;
+          <em><a href="https://arxiv.org/abs/2601.10547" target="_blank" rel="noopener">arXiv 2026</a></em></span>
+      </li>
+      <li>
+        <span class="name">PASK: Toward Intent-Aware Proactive Agents with Long-Term Memory</span><br>
+        <span class="meta"><b>Z. Xie</b>, Z. Hu, F. Ye, X. Zhang, H. Chai, Z. Liu, P. Wu, G. Zhang, Y. Liao, X. Hu, et al. &nbsp;·&nbsp;
+          <em>Technical report, 2026 (work done as CEO at Pask.ai)</em></span>
+      </li>
+      <li>
+        <span class="name">PASK: Providing Answer before AsKing toward Proactive AI Agent</span><br>
+        <span class="meta"><b>Z. Xie</b>, Z. Hu, G. Zhang, J. Zhang, Y. Liao, C. Miao, S. Yan &nbsp;·&nbsp; <em>ACM MM 2025 (Demo)</em></span>
+      </li>
+      <li>
+        <span class="name">DreamFactory: Pioneering Multi-Scene Long Video Generation with a Multi-Agent Framework</span><br>
+        <span class="meta"><b>Z. Xie</b>, D. Tang, D. Tan, J. Klein, T. F. Bissyandé, S. Ezzini &nbsp;·&nbsp;
+          <em>Technical report, 2024 (work done as CEO during the entrepreneurship period)</em></span>
+      </li>
+      <li>
+        <span class="name">Spider Silk-Inspired Environmentally Adaptive Intelligent Graphene Artificial Throat</span><br>
+        <span class="meta">Z. Su, L. Liang, <b>Z. Xie</b>, Y. Yang, L.-Q. Tao, T.-L. Ren &nbsp;·&nbsp;
+          <em>Chemical Engineering Journal, 2025</em></span>
+      </li>
+      <li>
+        <span class="name">Development and Validation of a Wearable Intelligent Telerehabilitation Device for Postoperative Rehabilitation of Chronic Ankle Instability</span><br>
+        <span class="meta">H. Liu, <b>Z. Xie</b>, R. Guo, Z. Ren, J. Ma, X. Wu, D. Jiang, T. Ren &nbsp;·&nbsp;
+          <em>IEEE Transactions on Neural Systems and Rehabilitation Engineering, 2026</em></span>
+      </li>
+      <li>
+        <span class="name">Flexible and Skin-Compatible rGO/PVDF Composite Sensor for Multi-Functional On-Skin Applications</span><br>
+        <span class="meta">Z.-J. Su, L.-Q. Tao, L.-W. Liang, <b>Z.-F. Xie</b>, Y. Yang, T.-L. Ren &nbsp;·&nbsp;
+          <em>IEEE Electron Devices Technology &amp; Manufacturing (EDTM), 2025</em></span>
+      </li>
+    </ul>
+  </section>
 
-      }
+
+  <!-- =========================================================
+       ACTIVITIES
+  ========================================================= -->
+  <section id="activities">
+    <h2>Activities</h2>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-handshake"></i>Industry Advisory</div>
+      <div class="body">
+        <ul>
+          <li>Speech technology advisor,
+            <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi</a></b></li>
+          <li>Advisor,
+            <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-microphone-lines"></i>Invited Talks &amp; Exchanges</div>
+      <div class="body">
+        <ul>
+          <li><b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b>, Marina Bay Sands</li>
+          <li><b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi AI Lab</a></b> ·
+            <b><a href="https://klingai.com/" target="_blank" rel="noopener">Kling AI (可灵)</a></b> ·
+            <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b></li>
+          <li><b><a href="https://shokz.com/" target="_blank" rel="noopener">Shokz (韶音)</a></b> ·
+            <b><a href="https://www.plaud.ai/" target="_blank" rel="noopener">PLAUD.AI</a></b> ·
+            <b><a href="https://www.agora.io/en/" target="_blank" rel="noopener">Agora (声网)</a></b></li>
+          <li>Research exchange with
+            <b><a href="https://coai.cs.tsinghua.edu.cn/hml/" target="_blank" rel="noopener">Prof. Minlie Huang</a></b>,
+            <a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-newspaper"></i>Media Coverage</div>
+      <div class="body">
+        <ul>
+          <li>Mini-Omni and Mini-Omni-Reasoner covered by
+            <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b></li>
+          <li>PASK featured by <b><a href="#" target="_blank" rel="noopener">AI Era (新智元)</a></b></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- EDIT: keep only the venues you actually served for -->
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-clipboard-check"></i>Academic Service</div>
+      <div class="body">
+        <ul>
+          <li>Reviewer for <b>NeurIPS</b>, <b>ICLR</b>, <b>ICML</b>, <b>ACL</b>, <b>EMNLP</b>, <b>ACM MM</b>, <b>CVPR</b>, <b>ICCV</b></li>
+          <li>Reviewer for <b>IEEE/ACM Transactions on Audio, Speech and Language Processing</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-rocket"></i>Industry &amp; Entrepreneurship</div>
+      <div class="body">
+        <ul>
+          <li>Founder &amp; CEO, <b>Pask.ai</b> — proactive, intent-aware AI agents with long-term memory</li>
+          <li>Research intern, <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b> — supervised by Dr. Jin Xu</li>
+          <li>Research intern, <b>Inspirai</b> — where the Mini-Omni series was started</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-code-branch"></i>Open Source</div>
+      <div class="body">
+        <ul>
+          <li>Maintainer of the <b>Mini-Omni</b> series, <b>Audio-Reasoner</b>, <b>Mega-ASR</b> and
+            <b>Audio-Interaction</b> — thousands of GitHub stars and widely used as baselines in the speech-LM community</li>
+          <li>Open datasets: <b>CoTA</b>, <b>Spoken-Math-Problems-3M</b>, <b>Voices-in-the-Wild-2M</b>, <b>StreamAudio-2M</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-award"></i>Honors</div>
+      <div class="body">
+        <ul>
+          <li><b>Gold medal</b>, <a href="https://huggingface.co/spaces/treble-technologies/ffasr" target="_blank" rel="noopener">FFASR Leaderboard</a> — Mega-ASR, 2026</li>
+          <li><b>#1 Paper of the Day</b> on <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face</a> — Mini-Omni (2024) and Mega-ASR (2026)</li>
+          <li>Recommended to <a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a> for graduate study without entrance examination</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="head"><i class="fa-solid fa-music"></i>Beyond Research</div>
+      <div class="body">
+        <ul>
+          <li>Symphonic musician for <b>16 years</b> — orchestral performance is my other long-running project</li>
+          <li>A lifelong dog person; my projects carry a Shiba Inu avatar in memory of <b>Guagua</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
 
-      gallery.appendChild(item);
+  <footer>
+    <span>© 2026 Zhifei Xie · Nanyang Technological University</span>
+    <span>Last updated: August 2026</span>
+  </footer>
 
-    });
+</div>
 
-  </script>
+
+<script>
+  /* ---------- nav turns solid once the banner scrolls away ---------- */
+  const topbar = document.getElementById("topbar");
+  const onScroll = () => topbar.classList.toggle("solid", window.scrollY > 60);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---------- mobile menu ---------- */
+  const toggle = document.getElementById("nav-toggle");
+  const links  = document.getElementById("nav-links");
+  toggle.addEventListener("click", () => {
+    links.classList.toggle("open");
+    if (links.classList.contains("open")) topbar.classList.add("solid");
+    else onScroll();
+  });
+  links.querySelectorAll("a").forEach(a =>
+    a.addEventListener("click", () => links.classList.remove("open"))
+  );
+
+  /* ---------- show earlier news ---------- */
+  const newsBtn  = document.getElementById("news-btn");
+  const newsMore = document.getElementById("news-more");
+  newsBtn.addEventListener("click", () => {
+    const open = newsMore.classList.toggle("open");
+    newsBtn.textContent = open ? "Hide earlier news ▴" : "Show earlier news ▾";
+  });
+
+  /* ---------- live GitHub star counter ---------- */
+  const REPOS = [
+    "gpt-omni/mini-omni",
+    "gpt-omni/mini-omni2",
+    "xzf-thu/Audio-Reasoner",
+    "xzf-thu/Mini-Omni-Reasoner",
+    "xzf-thu/Mega-ASR",
+    "xzf-thu/Audio-Interaction"
+  ];
+
+  const compact = n =>
+    n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n);
+
+  (async () => {
+    try {
+      const counts = await Promise.all(
+        REPOS.map(r =>
+          fetch("https://api.github.com/repos/" + r)
+            .then(res => (res.ok ? res.json() : null))
+            .then(d => (d && d.stargazers_count) || 0)
+            .catch(() => 0)
+        )
+      );
+      const total = counts.reduce((a, b) => a + b, 0);
+      if (total > 0) document.getElementById("m-stars").textContent = compact(total) + "+";
+    } catch (e) { /* keep the placeholder */ }
+  })();
+</script>
 
 </body>
 </html>

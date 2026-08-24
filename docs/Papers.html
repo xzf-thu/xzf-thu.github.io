@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Papers Gallery — Zhifei Xie</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+  /* =========================================================
+     TUNABLE VARIABLES
+  ========================================================= */
+  :root {
+    --page-width: 1060px;
+
+    --ink: #1c1c1c;
+    --ink-soft: #3d3d3d;
+    --ink-mute: #7a7a7a;
+    --rule: #e6e6e6;
+    --link: #1a4fa0;
+    --serif: "Charter", "Bitstream Charter", Georgia, "Times New Roman", "Songti SC", serif;
+    --accent-soft: #f4f8fc;
+
+    /* gallery cards: 25% width => 4 per row */
+    --paper-width: 25%;
+    --paper-aspect-ratio: 3 / 4;
+    --paper-title-size: 14px;
+    --paper-date-size: 12px;
+
+    /* frosted stats bar at the bottom of each card */
+    --stats-height: 48px;
+    --stats-font-size: 13px;
+    --stats-glass-alpha-top: 0.42;
+    --stats-glass-alpha: 0.66;
+    --stats-glass-blur: 16px;
+    --stats-radius: 15px;
+    --stats-inset-x: 14px;
+    --stats-bottom-offset: 14px;
+    --stats-gap: 12px;
+    --stats-padding-x: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink-soft);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--link); text-decoration: underline; }
+  .brand, .nav-links a { text-decoration: none; }
+  .nav-links a:hover { text-decoration: underline; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* =========================================================
+     TOP NAVIGATION BAR (same as the homepage)
+  ========================================================= */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.88);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .topbar .wrap {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .brand {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .brand:hover { opacity: 0.72; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 14.5px;
+  }
+  .nav-links a { color: var(--ink-soft); white-space: nowrap; }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border: 1px solid #b9c8dd;
+    background: #eef3f9;
+    color: var(--link) !important;
+    font-weight: 600;
+  }
+
+  .nav-toggle {
+    display: none;
+    border: 1px solid var(--rule);
+    background: #fff;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 15px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* =========================================================
+     PAGE TITLE with ornamental rules
+  ========================================================= */
+  .page-head {
+    padding: 46px 0 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .page-head .text {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: lowercase;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  .page-head .caption {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--ink-mute);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  .page-head .lines {
+    width: 100%;
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .page-head .line {
+    position: relative;
+    width: min(250px, 34vw);
+    height: 18px;
+    flex: 0 1 250px;
+  }
+
+  .page-head .line::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    transform: translateY(-50%);
+    height: 9px;
+    opacity: 0.9;
+    background:
+      radial-gradient(ellipse at center, rgba(74,74,74,0.35) 0 1.2px, transparent 1.5px)
+        center / 20px 9px repeat-x,
+      linear-gradient(to right,
+        transparent 0%,
+        rgba(74,74,74,0.72) 16%,
+        rgba(74,74,74,0.34) 50%,
+        rgba(74,74,74,0.72) 84%,
+        transparent 100%) center / 100% 1px no-repeat;
+  }
+
+  .page-head .line::after {
+    content: "◇";
+    position: absolute;
+    top: 50%;
+    right: 7%;
+    transform: translateY(-51%);
+    color: rgba(74,74,74,0.72);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1;
+    background: #ffffff;
+    padding: 0 5px;
+  }
+
+  .page-head .line.left { transform: scaleX(-1); }
+
+  /* =========================================================
+     GALLERY — always 4 cards per row
+  ========================================================= */
+  .gallery {
+    width: 100%;
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .gallery .item {
+    position: relative;
+    width: var(--paper-width);
+    flex: 0 0 var(--paper-width);
+    aspect-ratio: var(--paper-aspect-ratio);
+    min-width: 0;
+    overflow: hidden;
+    line-height: 0;
+    cursor: pointer;
+  }
+
+  .gallery .item img.paper-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+  }
+
+  .gallery .item img.base  { opacity: 1; }
+  .gallery .item img.hover { opacity: 0; }
+  .gallery .item:hover img.base  { opacity: 0; }
+  .gallery .item:hover img.hover { opacity: 1; }
+  .gallery .item:hover img.paper-image { transform: scale(1.015); }
+
+  .gallery .item .label.title {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    z-index: 3;
+    max-width: calc(100% - 90px);
+    color: #444444;
+    line-height: 1.2;
+    pointer-events: none;
+    font-size: clamp(8px, 0.95vw, var(--paper-title-size));
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(255,255,255,0.70), 0 0 7px rgba(255,255,255,0.46);
+  }
+
+  .paper-date {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 3;
+    padding: 5px 9px;
+    border-radius: 999px;
+    color: #4d4d4d;
+    font-size: clamp(8px, 0.82vw, var(--paper-date-size));
+    line-height: 1;
+    letter-spacing: 0.02em;
+    background: rgba(255,255,255,0.52);
+    -webkit-backdrop-filter: blur(10px) saturate(135%);
+    backdrop-filter: blur(10px) saturate(135%);
+    border: 1px solid rgba(255,255,255,0.74);
+    box-shadow: 0 6px 16px rgba(255,255,255,0.25), inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+
+  .paper-stats {
+    position: absolute;
+    left: var(--stats-inset-x);
+    right: var(--stats-inset-x);
+    bottom: var(--stats-bottom-offset);
+    z-index: 4;
+    min-height: var(--stats-height);
+    padding: 9px var(--stats-padding-x);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--stats-gap);
+    color: #303030;
+    font-size: clamp(8px, 0.88vw, var(--stats-font-size));
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--stats-radius);
+    background: linear-gradient(to bottom,
+      rgba(255,255,255, var(--stats-glass-alpha-top)),
+      rgba(255,255,255, var(--stats-glass-alpha)));
+    -webkit-backdrop-filter: blur(var(--stats-glass-blur)) saturate(140%);
+    backdrop-filter: blur(var(--stats-glass-blur)) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.82);
+    box-shadow: 0 10px 28px rgba(255,255,255,0.30), inset 0 1px 0 rgba(255,255,255,0.54);
+  }
+
+  .paper-stats .metric { display: inline-flex; align-items: center; gap: 5px; }
+  .paper-stats .metric-label { font-weight: 600; }
+  .paper-stats .metric.star .metric-symbol,
+  .paper-stats .metric.star .metric-label,
+  .paper-stats .metric.star .metric-value { color: #c79500; }
+  .paper-stats .metric.citations .metric-label,
+  .paper-stats .metric.citations .metric-value { color: #2b6ee9; }
+  .paper-stats .metric-value { color: #363636; }
+
+  footer {
+    margin-top: 40px;
+    padding: 22px 0 40px;
+    border-top: 1px solid var(--rule);
+    font-size: 13px;
+    color: var(--ink-mute);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  /* =========================================================
+     RESPONSIVE — cards stay at 25%
+  ========================================================= */
+  @media (max-width: 880px) {
+    .wrap { padding: 0 18px; }
+
+    .nav-links {
+      display: none;
+      position: absolute;
+      left: 0; right: 0; top: 62px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--rule);
+      padding: 6px 18px 14px;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 10px 0; border-bottom: 1px solid #f4f4f4; }
+    .nav-cta { margin-top: 10px; justify-content: center; border-bottom: 0 !important; }
+    .nav-toggle { display: inline-block; }
+
+    .page-head { padding-top: 30px; }
+    .page-head .text { font-size: 26px; }
+
+    .gallery .item .label.title { left: 6px; top: 6px; max-width: calc(100% - 62px); }
+    .paper-date { right: 6px; top: 6px; padding: 4px 6px; }
+    .paper-stats {
+      left: 6px; right: 6px; bottom: 6px;
+      min-height: 30px; padding: 4px 5px; gap: 5px; border-radius: 9px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<nav class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html">Zhifei Xie</a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="nav-links" id="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#news">News</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#activities">Activities</a>
+      <a class="nav-cta" href="papers.html"><i class="fa-regular fa-images"></i> Papers Gallery</a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="wrap">
+
+  <div class="page-head">
+    <span class="text">papers gallery</span>
+    <p class="caption">
+      Teaser figures from my work on large audio language models and real-time speech interaction.
+      Hover a card to flip it; click to open the paper.
+    </p>
+
+    <div class="lines" aria-hidden="true">
+      <span class="line left"></span>
+      <span class="line right"></span>
+    </div>
+  </div>
+
+  <section class="gallery" id="gallery"></section>
+
+  <footer>
+    <span>© 2026 Zhifei Xie · Nanyang Technological University</span>
+    <span><a href="index.html">← Back to homepage</a></span>
+  </footer>
+
+</div>
+
+
+<script>
+  /* ---------- mobile menu ---------- */
+  const toggle = document.getElementById("nav-toggle");
+  const links  = document.getElementById("nav-links");
+  toggle.addEventListener("click", () => links.classList.toggle("open"));
+
+  /* =========================================================
+     PAPER DATA
+
+     title      : card title
+     file       : path WITHOUT extension; loads file.png and file_hover.png
+     repo       : GitHub "owner/name" — star count is fetched live
+     stars      : fallback shown if the GitHub API is unavailable
+     citations  : Google Scholar count (update by hand)
+     date       : shown top-right, YYYY.MM
+     url        : opened on click
+  ========================================================= */
+  const works = [
+
+    {
+      title: "Audio Interaction Model",
+      file: "images/Audio-Interaction",
+      repo: "xzf-thu/Audio-Interaction",
+      stars: "583",
+      citations: "–",
+      date: "2026.06",
+      url: "https://arxiv.org/abs/2606.05121"
+    },
+
+    {
+      title: "Mega-ASR",
+      file: "images/Mega-ASR",
+      repo: "xzf-thu/Mega-ASR",
+      stars: "963",
+      citations: "3",
+      date: "2026.05",
+      url: "https://arxiv.org/abs/2605.19833"
+    },
+
+    {
+      title: "Mini-Omni-Reasoner",
+      file: "images/Mini-Omni-Reasoner",
+      repo: "xzf-thu/Mini-Omni-Reasoner",
+      stars: "–",
+      citations: "17",
+      date: "2025.08",
+      url: "https://arxiv.org/abs/2508.15827"
+    },
+
+    {
+      title: "Audio-Reasoner",
+      file: "images/audio-reasoner",
+      repo: "xzf-thu/Audio-Reasoner",
+      stars: "–",
+      citations: "144",
+      date: "2025.03",
+      url: "https://arxiv.org/abs/2503.02318"
+    },
+
+    {
+      title: "Mini-Omni2",
+      file: "images/Mini-Omni2",
+      repo: "gpt-omni/mini-omni2",
+      stars: "–",
+      citations: "131",
+      date: "2024.10",
+      url: "https://arxiv.org/abs/2410.11190"
+    },
+
+    {
+      title: "Mini-Omni",
+      file: "images/Mini-Omni",
+      repo: "gpt-omni/mini-omni",
+      stars: "3.5k",
+      citations: "243",
+      date: "2024.08",
+      url: "https://arxiv.org/abs/2408.16725"
+    }
+
+  ];
+
+
+  /* ---------- build the cards ---------- */
+  const gallery = document.getElementById("gallery");
+
+  works.forEach((work, i) => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    item.innerHTML = `
+      <img class="paper-image base" src="${work.file}.png" alt="${work.title}">
+
+      <img class="paper-image hover" src="${work.file}_hover.png" alt="${work.title}"
+           onerror="this.onerror=null;this.src='${work.file}.png';">
+
+      <span class="label title">${work.title}</span>
+
+      <span class="paper-date">${work.date}</span>
+
+      <div class="paper-stats">
+        <span class="metric star">
+          <span class="metric-symbol">★</span>
+          <span class="metric-value" id="stars-${i}">${work.stars}</span>
+          <span class="metric-label">Stars</span>
+        </span>
+
+        <span class="metric citations">
+          <span class="metric-label">Cited by</span>
+          <span class="metric-value">${work.citations}</span>
+        </span>
+      </div>
+    `;
+
+    if (work.url) {
+      item.addEventListener("click", () =>
+        window.open(work.url, "_blank", "noopener,noreferrer")
+      );
+    }
+
+    gallery.appendChild(item);
+  });
+
+
+  /* ---------- live GitHub star counts ---------- */
+  const compact = n =>
+    n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n);
+
+  works.forEach((work, i) => {
+    if (!work.repo) return;
+    fetch("https://api.github.com/repos/" + work.repo)
+      .then(res => (res.ok ? res.json() : null))
+      .then(d => {
+        if (d && typeof d.stargazers_count === "number") {
+          document.getElementById("stars-" + i).textContent = compact(d.stargazers_count);
+        }
+      })
+      .catch(() => { /* keep the fallback value */ });
+  });
+</script>
+
+</body>
+</html>
