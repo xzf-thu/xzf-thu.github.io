@@ -3,180 +3,1030 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
+<title>Xie Zhifei</title>
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* =========================================================
+     可调超参数
+     之后主要修改这里即可
+  ========================================================= */
+  :root {
+
+    /* ---------- 顶部图片 ---------- */
+    --hero-height: 29vh;
+    --hero-fade-start: 100%;
+    --hero-fade-end: 93%;
+
+    /*
+      图片内容焦点位置：
+      x 控制左右；y 越大，图片内容整体越向上移动，
+      因而会露出更多原图下方的细节。
+    */
+    --hero-image-pos-x: 50%;
+    --hero-image-pos-y: 79%;
+
+    /* ---------- 姓名位置 ---------- */
+    --name-x: 20%;
+    --name-y: 53%;
+
+    /* ---------- 姓名大小 ---------- */
+    --name-size-min: 23px;
+    --name-size-fluid: 3vw;
+    --name-size-max: 42px;
+
+    /* ---------- 单位 / 学校信息大小 ---------- */
+    --affil-size-min: 14px;
+    --affil-size-fluid: 1.5vw;
+    --affil-size-max: 20px;
+
+    /* ---------- 姓名周围的渐白光晕 ---------- */
+    --name-halo-width: 160%;
+    --name-halo-height: 200%;
+    --name-halo-opacity: 0.64;
+    --name-halo-opacity-mid: 0.40;
+    --name-halo-opacity-low: 0.16;
+    --name-halo-blur: 22px;
+
+    /* ---------- 首屏介绍区域 ---------- */
+    --intro-height: 70vh;
+
+    /* ---------- Biography ---------- */
+    --bio-width: 760px;
+    --bio-font-size: 17px;
+    --bio-line-height: 1.88;
+    --bio-paragraph-gap: 17px;
+    --bio-padding-top: 22px;
+    --bio-padding-bottom: 22px;
+
+    /* ---------- Papers 标题 ---------- */
+    --papers-title-size: 32px;
+    --papers-title-top-gap: 12px;
+    --papers-title-line-gap: 7px;
+    --papers-gallery-gap: 4px;
+    --papers-line-width: 250px;
+    --papers-line-center-gap: 18px;
+    --papers-ornament-color: rgba(74, 74, 74, 0.72);
+    --papers-ornament-dot-color: rgba(74, 74, 74, 0.35);
+
+    /* ---------- Paper 卡片 ---------- */
+    --paper-width: 25%;
+    --paper-aspect-ratio: 3 / 4;
+    --paper-title-size: 14px;
+    --paper-date-size: 12px;
+
+    /* ---------- Paper 底部圆角毛玻璃 ---------- */
+    --stats-height: 48px;
+    --stats-font-size: 13px;
+    --stats-glass-alpha-top: 0.42;
+    --stats-glass-alpha: 0.66;
+    --stats-glass-blur: 16px;
+    --stats-radius: 15px;
+    --stats-inset-x: 14px;
+    --stats-bottom-offset: 14px;
+    --stats-gap: 12px;
+    --stats-padding-x: 14px;
+  }
+
+
+  /* =========================================================
+     全局
+  ========================================================= */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
 
   body {
-    font-family: "Georgia", "Songti SC", serif;
+    font-family:
+      Georgia,
+      "Songti SC",
+      "Noto Serif CJK SC",
+      "STSong",
+      serif;
+
     color: #1a1a1a;
     background: #ffffff;
   }
 
-  /* ===== 顶部条状图片 ===== */
+  button,
+  a {
+    font: inherit;
+  }
+
+
+  /* =========================================================
+     顶部介绍区域
+     Hero + Biography
+  ========================================================= */
+
+  .above-fold {
+    height: var(--intro-height);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+
+  /* =========================================================
+     Hero 顶部图片
+  ========================================================= */
+
   .hero {
     position: relative;
     width: 100%;
-    line-height: 0;            /* 去掉图片底部空隙 */
+    height: var(--hero-height);
+    flex: 0 0 auto;
+    line-height: 0;
+    overflow: hidden;
   }
-  .hero img {
+
+  .hero > img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--hero-image-pos-x) var(--hero-image-pos-y);
     display: block;
   }
-  /* 底部 20% 渐变到白色 */
+
   .hero::after {
     content: "";
     position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 100%;
+    inset: 0;
+    z-index: 1;
     pointer-events: none;
-    background: linear-gradient(to bottom,
-      rgba(255,255,255,0) 80%,
-      rgba(255,255,255,1) 100%);
+
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0) var(--hero-fade-start),
+      rgba(255, 255, 255, 1) var(--hero-fade-end),
+      rgba(255, 255, 255, 1) 100%
+    );
   }
 
-  /* ===== Biography ===== */
+
+  /* =========================================================
+     姓名 + 学校 + 联系方式
+  ========================================================= */
+
+  .hero-name {
+    position: absolute;
+    left: var(--name-x);
+    top: var(--name-y);
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    color: #ffffff;
+    line-height: 1.3;
+    isolation: isolate;
+  }
+
+  .hero-name::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--name-halo-width);
+    height: var(--name-halo-height);
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, var(--name-halo-opacity)) 0%,
+      rgba(255, 255, 255, var(--name-halo-opacity-mid)) 34%,
+      rgba(255, 255, 255, var(--name-halo-opacity-low)) 56%,
+      rgba(255, 255, 255, 0) 76%
+    );
+
+    filter: blur(var(--name-halo-blur));
+  }
+
+  .hero-name .name {
+    font-size: clamp(
+      var(--name-size-min),
+      var(--name-size-fluid),
+      var(--name-size-max)
+    );
+
+    font-weight: 600;
+    letter-spacing: 0.01em;
+
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.95),
+      0 0 12px rgba(255, 255, 255, 0.66),
+      0 1px 3px rgba(0, 0, 0, 0.36);
+  }
+
+  .hero-name .affil {
+    margin-top: 5px;
+
+    font-size: clamp(
+      var(--affil-size-min),
+      var(--affil-size-fluid),
+      var(--affil-size-max)
+    );
+
+    color: rgba(255, 255, 255, 0.97);
+
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.80),
+      0 1px 3px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-links {
+    margin-top: 9px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: rgba(255, 255, 255, 0.96);
+    text-decoration: none;
+
+    font-size: clamp(12px, 1vw, 15px);
+
+    text-shadow:
+      0 0 4px rgba(255, 255, 255, 0.72),
+      0 1px 3px rgba(0, 0, 0, 0.34);
+
+    transition: opacity 0.2s ease;
+  }
+
+  .hero-links a:hover {
+    opacity: 0.72;
+  }
+
+  .hero-links .separator {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 13px;
+  }
+
+  .hero-links svg,
+  .hero-links img {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+  }
+
+  .hero-links svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  .hero-links img {
+    display: block;
+    border-radius: 2px;
+  }
+
+
+  /* =========================================================
+     Biography
+  ========================================================= */
+
   .biography {
-    max-width: 760px;
+    width: 100%;
+    max-width: var(--bio-width);
     margin: 0 auto;
-    padding: 20px 24px 80px;
-    text-align: center;
-  }
-  .biography p {
-    font-size: 18px;
-    line-height: 1.9;
-    color: #333;
-    margin-bottom: 22px;
-  }
-  .biography p:last-child { margin-bottom: 0; }
+    padding: var(--bio-padding-top) 24px var(--bio-padding-bottom);
 
-  /* ===== my works 分隔标题 ===== */
-  .works-title {
+    flex: 1 1 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: left;
+  }
+
+  /* [中文] ｜ [English] */
+  .language-switch {
+    margin-bottom: 12px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    max-width: 760px;
-    margin: 0 auto 50px;
-    padding: 0 24px;
+    gap: 7px;
+
+    font-size: 14px;
+    line-height: 1.2;
+    color: #777777;
   }
-  .works-title span {
-    font-size: 22px;
+
+  .language-switch button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #777777;
+    cursor: pointer;
+  }
+
+  .language-switch button:hover,
+  .language-switch button.active {
+    color: #111111;
+  }
+
+  .language-switch button.active {
+    font-weight: 600;
+  }
+
+  .language-switch .separator {
+    color: #b3b3b3;
+  }
+
+  .bio-copy {
+    display: none;
+  }
+
+  .bio-copy.active {
+    display: block;
+  }
+
+  .biography p {
+    font-size: var(--bio-font-size);
+    line-height: var(--bio-line-height);
+    color: #333333;
+    margin-bottom: var(--bio-paragraph-gap);
+  }
+
+  .biography p:last-child {
+    margin-bottom: 0;
+  }
+
+
+  /* =========================================================
+     My Papers
+     文字在上，左右装饰花纹在下
+  ========================================================= */
+
+  .papers-title {
+    width: 100%;
+    margin: 0 auto;
+    padding: var(--papers-title-top-gap) 24px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .papers-title .text {
+    font-size: var(--papers-title-size);
     letter-spacing: 0.18em;
     text-transform: lowercase;
     white-space: nowrap;
     color: #1a1a1a;
-  }
-  /* 左右小横线：靠近文字处为黑，向外渐变到白 */
-  .works-title .line {
-    height: 1px;
-    width: 120px;
-    flex: 0 0 auto;
-  }
-  .works-title .line.left {
-    background: linear-gradient(to right, #ffffff, #1a1a1a);
-  }
-  .works-title .line.right {
-    background: linear-gradient(to right, #1a1a1a, #ffffff);
+    line-height: 1.1;
   }
 
-  /* ===== 图片网格：强制 4 个一排，每个 25% ===== */
+  .papers-title .lines {
+    width: 100%;
+    margin-top: var(--papers-title-line-gap);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--papers-line-center-gap);
+  }
+
+  .papers-title .line {
+    position: relative;
+    width: min(var(--papers-line-width), 38vw);
+    height: 18px;
+    flex: 0 1 var(--papers-line-width);
+  }
+
+  /* 细线改为更轻的叶片 / 菱形装饰花纹 */
+  .papers-title .line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 9px;
+    opacity: 0.9;
+    background:
+      radial-gradient(ellipse at center, var(--papers-ornament-dot-color) 0 1.2px, transparent 1.5px)
+        center / 20px 9px repeat-x,
+      linear-gradient(
+        to right,
+        transparent 0%,
+        var(--papers-ornament-color) 16%,
+        rgba(74,74,74,0.34) 50%,
+        var(--papers-ornament-color) 84%,
+        transparent 100%
+      ) center / 100% 1px no-repeat;
+  }
+
+  .papers-title .line::after {
+    content: "◇";
+    position: absolute;
+    top: 50%;
+    right: 7%;
+    transform: translateY(-51%);
+    color: var(--papers-ornament-color);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1;
+    background: #ffffff;
+    padding: 0 5px;
+  }
+
+  .papers-title .line.left {
+    transform: scaleX(-1);
+  }
+
+
+  /* =========================================================
+     Papers 图片网格
+     所有屏幕始终每张 25% 宽，也就是一排 4 张
+  ========================================================= */
+
   .gallery {
+    width: 100%;
+    margin-top: var(--papers-gallery-gap);
     display: flex;
     flex-wrap: wrap;
   }
+
   .gallery .item {
-    width: 25%;            /* 每排 4 个 */
     position: relative;
-    aspect-ratio: 3 / 4;   /* 3:4 比例 */
+    width: var(--paper-width);
+    flex: 0 0 var(--paper-width);
+    aspect-ratio: var(--paper-aspect-ratio);
+    height: auto;
+    min-width: 0;
+
     overflow: hidden;
     line-height: 0;
+    cursor: pointer;
   }
-  .gallery .item img {
+
+  .gallery .item img.paper-image {
     position: absolute;
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
     display: block;
-    transition: opacity 0.3s ease;
-  }
-  /* 默认显示原图，hover 图叠在上层、透明 */
-  .gallery .item img.hover { opacity: 0; }
-  .gallery .item:hover img.base  { opacity: 0; }
-  .gallery .item:hover img.hover { opacity: 1; }
 
-  /* 图片上的文字标签 */
-  .gallery .item .label {
+    transition:
+      opacity 0.3s ease,
+      transform 0.5s ease;
+  }
+
+  .gallery .item img.base {
+    opacity: 1;
+  }
+
+  .gallery .item img.hover {
+    opacity: 0;
+  }
+
+  .gallery .item:hover img.base {
+    opacity: 0;
+  }
+
+  .gallery .item:hover img.hover {
+    opacity: 1;
+  }
+
+  .gallery .item:hover img.paper-image {
+    transform: scale(1.015);
+  }
+
+
+  /* =========================================================
+     Paper 标题与日期
+  ========================================================= */
+
+  .gallery .item .label.title {
     position: absolute;
     left: 14px;
-    z-index: 2;
-    color: #444;                /* 深灰色 */
+    top: 12px;
+    z-index: 3;
+
+    max-width: calc(100% - 90px);
+
+    color: #444444;
     line-height: 1.2;
     pointer-events: none;
-    text-shadow: 0 1px 2px rgba(255,255,255,0.55); /* 提升可读性 */
+
+    font-size: clamp(8px, 0.95vw, var(--paper-title-size));
+    font-weight: 600;
+
+    text-shadow:
+      0 1px 2px rgba(255, 255, 255, 0.70),
+      0 0 7px rgba(255, 255, 255, 0.46);
   }
-  .gallery .item .label.title {
+
+  .paper-date {
+    position: absolute;
+    right: 12px;
     top: 12px;
-    font-size: 14px;
+    z-index: 3;
+
+    padding: 5px 9px;
+    border-radius: 999px;
+
+    color: #4d4d4d;
+    font-size: clamp(8px, 0.82vw, var(--paper-date-size));
+    line-height: 1;
+    letter-spacing: 0.02em;
+
+    background: rgba(255, 255, 255, 0.52);
+    -webkit-backdrop-filter: blur(10px) saturate(135%);
+    backdrop-filter: blur(10px) saturate(135%);
+    border: 1px solid rgba(255, 255, 255, 0.74);
+
+    box-shadow:
+      0 6px 16px rgba(255,255,255,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+
+
+  /* =========================================================
+     Paper 底部白色完整圆角毛玻璃统计框
+  ========================================================= */
+
+  .paper-stats {
+    position: absolute;
+    left: var(--stats-inset-x);
+    right: var(--stats-inset-x);
+    bottom: var(--stats-bottom-offset);
+    z-index: 4;
+
+    min-height: var(--stats-height);
+    padding: 9px var(--stats-padding-x);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--stats-gap);
+
+    color: #303030;
+    font-size: clamp(8px, 0.88vw, var(--stats-font-size));
+    line-height: 1;
+    white-space: nowrap;
+
+    border-radius: var(--stats-radius);
+
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(255,255,255, var(--stats-glass-alpha-top)),
+        rgba(255,255,255, var(--stats-glass-alpha))
+      );
+
+    -webkit-backdrop-filter:
+      blur(var(--stats-glass-blur))
+      saturate(140%);
+
+    backdrop-filter:
+      blur(var(--stats-glass-blur))
+      saturate(140%);
+
+    border: 1px solid rgba(255,255,255,0.82);
+
+    box-shadow:
+      0 10px 28px rgba(255,255,255,0.30),
+      inset 0 1px 0 rgba(255,255,255,0.54);
+  }
+
+  .paper-stats .metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .paper-stats .metric-label {
     font-weight: 600;
   }
-  .gallery .item .label.star {
-    bottom: 12px;
-    font-size: 14px;
+
+  .paper-stats .metric.star .metric-symbol,
+  .paper-stats .metric.star .metric-label,
+  .paper-stats .metric.star .metric-value {
+    color: #c79500;
   }
+
+  .paper-stats .metric.citations .metric-label,
+  .paper-stats .metric.citations .metric-value {
+    color: #2b6ee9;
+  }
+
+  .paper-stats .metric-value {
+    color: #363636;
+  }
+
+
+  /* =========================================================
+     手机 / 小屏幕
+     注意：Paper 仍然固定 25%，不会改成 50%
+  ========================================================= */
+
+  @media (max-width: 768px) {
+
+    .above-fold {
+      height: auto;
+      min-height: var(--intro-height);
+      overflow: visible;
+    }
+
+    .biography {
+      padding:
+        max(16px, var(--bio-padding-top))
+        20px
+        max(18px, var(--bio-padding-bottom));
+    }
+
+    .biography p {
+      font-size: clamp(14px, 3.7vw, var(--bio-font-size));
+      line-height: 1.72;
+      margin-bottom: 12px;
+    }
+
+    .papers-title {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .papers-title .line {
+      width: min(var(--papers-line-width), 34vw);
+    }
+
+    .gallery .item .label.title {
+      left: 6px;
+      top: 6px;
+      max-width: calc(100% - 62px);
+    }
+
+    .paper-date {
+      right: 6px;
+      top: 6px;
+      padding: 4px 6px;
+    }
+
+    .paper-stats {
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      min-height: 30px;
+      padding: 4px 5px;
+      gap: 5px;
+      border-radius: 9px;
+    }
+  }
+
 </style>
 </head>
+
 <body>
 
-  <!-- 顶部条状图片 -->
-  <header class="hero">
-    <img src="top.png" alt="">
-  </header>
+  <!-- =======================================================
+       顶部介绍
+  ======================================================== -->
 
-  <!-- Biography -->
-  <section class="biography">
-    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
-    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
-    <p>xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx.</p>
-  </section>
+  <div class="above-fold">
 
-  <!-- my works 分隔标题 -->
-  <div class="works-title">
-    <span class="line left"></span>
-    <span>my works</span>
-    <span class="line right"></span>
+    <!-- 顶部图片 -->
+    <header class="hero">
+
+      <img src="top.png" alt="">
+
+      <div class="hero-name">
+
+        <span class="name">
+          谢之非 Xie Zhifei
+        </span>
+
+        <span class="affil">
+          PhD, Nanyang Technological University
+        </span>
+
+        <div class="hero-links">
+
+          <a href="mailto:YOUR_EMAIL" aria-label="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="M4 7l8 6 8-6"></path>
+            </svg>
+            <span>Email</span>
+          </a>
+
+          <span class="separator">|</span>
+
+          <a
+            href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Google Scholar"
+          >
+            <img
+              src="https://www.google.com/favicon.ico"
+              alt="Google"
+            >
+            <span>Google Scholar</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Biography -->
+    <section class="biography">
+
+      <div class="language-switch" aria-label="Biography language">
+        <button class="active" type="button" data-lang="zh">[中文]</button>
+        <span class="separator">｜</span>
+        <button type="button" data-lang="en">[English]</button>
+      </div>
+
+      <!-- 中文简介 -->
+      <div class="bio-copy active" data-bio="zh">
+        <p>
+          你好，我是谢之非，祖籍安徽，在北京长大。目前，我是 LV-Lab 的博士生，导师为颜水成教授和苗春燕教授。在此之前，我本科毕业于北京理工大学，后保研至清华大学，并曾在千问实习，由徐进老师指导。
+        </p>
+
+        <p>
+          我的研究方向主要包括以音频为核心的多模态理解和语音智能体。我对研究工作的要求是，它必须具有足够的价值，并秉持这一理念完成了 Mini-Omni 等一系列工作。未来，我将持续探索可实时交互的多模态模型，围绕交互性、鲁棒性、推理能力和主动性等问题展开研究。
+        </p>
+
+        <p>
+          除此之外，我热爱交响乐，是一名拥有 16 年经验的乐手。我也非常喜欢动物。我的很多工作都以柴犬作为头像，因为我很怀念一只陪伴我长大的柴犬，它叫瓜瓜。
+        </p>
+      </div>
+
+      <!-- English biography -->
+      <div class="bio-copy" data-bio="en">
+        <p>
+          Hi, I am Zhifei Xie. My family is originally from Anhui, and I grew up in Beijing. I am currently a PhD student at LV-Lab, advised by Prof. Shuineng Yan and Prof. Chunyan Miao. Before that, I received my bachelor's degree from Beijing Institute of Technology, was admitted to Tsinghua University for graduate study, and interned at Qwen under the supervision of Jin Xu.
+        </p>
+
+        <p>
+          My research mainly focuses on audio-centric multimodal understanding and speech agents. I believe research should provide sufficient real-world value, and this principle has guided a series of projects including Mini-Omni. Going forward, I will continue exploring real-time interactive multimodal models, with particular interests in interactivity, robustness, reasoning, and proactivity.
+        </p>
+
+        <p>
+          Outside research, I love symphonic music and have 16 years of experience as an orchestral musician. I also love animals. Many of my projects use a Shiba Inu as their avatar because I deeply miss Guagua, a Shiba Inu who grew up with me.
+        </p>
+      </div>
+
+    </section>
+
   </div>
 
-  <!-- 作品图片网格 -->
+
+  <!-- =======================================================
+       My Papers
+       文字在装饰花纹之上
+  ======================================================== -->
+
+  <div class="papers-title">
+
+    <span class="text">my papers</span>
+
+    <div class="lines" aria-hidden="true">
+      <span class="line left"></span>
+      <span class="line right"></span>
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       Papers Gallery
+  ======================================================== -->
+
   <section class="gallery" id="gallery"></section>
 
+
+  <!-- =======================================================
+       Papers 数据及自动生成
+  ======================================================== -->
+
   <script>
-    // 显示顺序从前往后。file 不含扩展名，会加载 file.png（原图）与 file_hover.png（悬浮图）。
-    // 若没有对应的 _hover.png，悬浮时自动退回原图，不会变空白。
+
+    /*
+      每个项目现在支持：
+
+      title:
+        项目名称
+
+      file:
+        不写扩展名，会加载：
+        file.png
+        file_hover.png
+
+      stars:
+        GitHub Stars
+
+      citations:
+        Citation 数量
+
+      date:
+        右上角时间，精确到月份，例如 2024.08；请为每篇论文填写真实月份
+
+      url:
+        点击卡片跳转地址
+    */
+
     const works = [
-      { title: "Audio Interaction Model", file: "images/Audio-Interaction",    stars: "xxx" },
-      { title: "Mega-ASR",                file: "images/Mega-ASR",             stars: "xxx" },
-      { title: "Mini-Omni-Reasoner",      file: "images/Mini-Omni-Reasoner",   stars: "xxx" },
-      { title: "Audio-Reasoner",          file: "images/audio-reasoner",       stars: "xxx" },
-      { title: "Mini-Omni2",              file: "images/Mini-Omni2",           stars: "xxx" },
-      { title: "Mini-Omni",               file: "images/Mini-Omni",            stars: "xxx" }
+
+      {
+        title: "Audio Interaction Model",
+        file: "images/Audio-Interaction",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      },
+
+      {
+        title: "Mega-ASR",
+        file: "images/Mega-ASR",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      },
+
+      {
+        title: "Mini-Omni-Reasoner",
+        file: "images/Mini-Omni-Reasoner",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      },
+
+      {
+        title: "Audio-Reasoner",
+        file: "images/audio-reasoner",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      },
+
+      {
+        title: "Mini-Omni2",
+        file: "images/Mini-Omni2",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      },
+
+      {
+        title: "Mini-Omni",
+        file: "images/Mini-Omni",
+        stars: "xxx",
+        citations: "xxx",
+        date: "YYYY.MM",
+        url: ""
+      }
+
     ];
 
-    const gallery = document.getElementById("gallery");
-    works.forEach(w => {
-      const item = document.createElement("div");
-      item.className = "item";
-      item.innerHTML = `
-        <img class="base"  src="${w.file}.png" alt="${w.title}">
-        <img class="hover" src="${w.file}_hover.png" alt="${w.title}"
-             onerror="this.onerror=null; this.src='${w.file}.png';">
-        <span class="label title">${w.title}</span>
-        <span class="label star">⭐ ${w.stars}</span>
-      `;
-      gallery.appendChild(item);
+
+    /* ---------- Biography 中英文切换 ---------- */
+
+    const languageButtons =
+      document.querySelectorAll(".language-switch button");
+
+    const biographyCopies =
+      document.querySelectorAll(".bio-copy");
+
+    languageButtons.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const lang = button.dataset.lang;
+
+        languageButtons.forEach(item => {
+          item.classList.toggle(
+            "active",
+            item.dataset.lang === lang
+          );
+        });
+
+        biographyCopies.forEach(copy => {
+          copy.classList.toggle(
+            "active",
+            copy.dataset.bio === lang
+          );
+        });
+
+        document.documentElement.lang = lang;
+
+      });
+
     });
+
+
+    /* ---------- Papers 自动生成 ---------- */
+
+    const gallery =
+      document.getElementById("gallery");
+
+
+    works.forEach(work => {
+
+      const item =
+        document.createElement("div");
+
+      item.className = "item";
+
+
+      item.innerHTML = `
+
+        <img
+          class="paper-image base"
+          src="${work.file}.png"
+          alt="${work.title}"
+        >
+
+        <img
+          class="paper-image hover"
+          src="${work.file}_hover.png"
+          alt="${work.title}"
+          onerror="
+            this.onerror = null;
+            this.src = '${work.file}.png';
+          "
+        >
+
+        <span class="label title">
+          ${work.title}
+        </span>
+
+        <span class="paper-date">
+          ${work.date}
+        </span>
+
+        <div class="paper-stats">
+
+          <span class="metric star">
+            <span class="metric-symbol">★</span>
+            <span class="metric-value">${work.stars}</span>
+            <span class="metric-label">Stars</span>
+          </span>
+
+          <span class="metric citations">
+            <span class="metric-label">Cited by</span>
+            <span class="metric-value">${work.citations}</span>
+          </span>
+
+        </div>
+
+      `;
+
+
+      if (work.url) {
+
+        item.addEventListener(
+          "click",
+          () => {
+            window.open(
+              work.url,
+              "_blank",
+              "noopener,noreferrer"
+            );
+          }
+        );
+
+      }
+
+
+      gallery.appendChild(item);
+
+    });
+
   </script>
 
 </body>
