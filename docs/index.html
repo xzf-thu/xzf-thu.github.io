@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zhifei Xie</title>
-<meta name="description" content="Zhifei Xie — PhD student at LV-Lab, Nanyang Technological University. Audio-centric multimodal understanding and speech agents. Mini-Omni, Audio-Reasoner, Mega-ASR, Audio Interaction Model.">
+<meta name="description" content="Zhifei Xie — PhD student at LV-Lab, Nanyang Technological University. Large audio language models and real-time speech interaction. Mini-Omni, Audio-Reasoner, Mega-ASR, Audio Interaction Model, VoiceMem.">
 
 <!-- icon fonts -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -23,7 +23,7 @@
     --rule: #dddddd;
 
     --link: #1a4fa0;          /* classic academic blue, underlined */
-    --resource: #c25b12;      /* arXiv / code links under papers   */
+    --resource: #c25b12;      /* project page / arXiv / code links */
 
     /* ---------- typography ---------- */
     --serif: "Charter", "Bitstream Charter", Georgia, "Times New Roman", "Songti SC", serif;
@@ -72,7 +72,6 @@
 
   /* =========================================================
      TOP NAVIGATION BAR
-     transparent over the banner, turns white once scrolled
   ========================================================= */
   .topbar {
     position: fixed;
@@ -133,10 +132,7 @@
     cursor: pointer;
   }
 
-  .topbar.solid {
-    background: #ffffff;
-    border-bottom-color: var(--rule);
-  }
+  .topbar.solid { background: #ffffff; border-bottom-color: var(--rule); }
   .topbar.solid .brand { color: var(--ink) !important; text-shadow: none; }
   .topbar.solid .nav-links a { color: var(--ink-soft) !important; text-shadow: none; }
   .topbar.solid .nav-cta {
@@ -196,7 +192,6 @@
   .hero-name .name {
     font-size: var(--name-size);
     font-weight: bold;
-    letter-spacing: 0.01em;
     text-shadow: 0 2px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4);
   }
 
@@ -300,7 +295,7 @@
 
   .news .what { flex: 1 1 auto; min-width: 0; }
 
-  /* the first news items carry a picture */
+  /* the top three items carry a picture on the left */
   .news li.featured { padding: 12px 0; border-bottom: 1px dotted #e8e8e8; }
   .news li.featured:first-child { padding-top: 4px; }
 
@@ -310,16 +305,18 @@
     align-items: flex-start;
   }
 
-  .news li.featured .text { flex: 1 1 auto; min-width: 0; }
-
   .news .news-img {
-    flex: 0 0 190px;
-    width: 190px;
+    flex: 0 0 200px;
+    width: 200px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
     border: 1px solid var(--rule);
     padding: 2px;
-    background: #fff;
+    background: #fbfbfb;
     display: block;
   }
+
+  .news li.featured .text { flex: 1 1 auto; min-width: 0; }
 
   #news-more { display: none; }
   #news-more.open { display: block; }
@@ -400,7 +397,15 @@
   .pub .links .sep { color: #cccccc; }
   .pub .links img { height: 19px; vertical-align: middle; }
 
-  .pub .tldr { margin-top: 7px; font-size: 13.5px; line-height: 1.6; color: #555; }
+  .pub .tldr { margin-top: 7px; font-size: 13.5px; line-height: 1.62; color: #4a4a4a; }
+
+  .pub .citedby {
+    margin-top: 6px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--ink-mute);
+  }
+  .pub .citedby b { font-size: 12.5px; color: var(--ink-soft); }
 
   /* compact list for the remaining papers */
   .other { list-style: none; margin-top: 4px; }
@@ -571,11 +576,13 @@
       I am a Ph.D. student at <b>LV-Lab</b>,
       <b><a href="https://www.ntu.edu.sg/" target="_blank" rel="noopener">Nanyang Technological University</a></b>,
       advised by <b><a href="https://scholar.google.com/citations?user=DNuiPHwAAAAJ&hl=en" target="_blank" rel="noopener">Prof. Shuicheng Yan</a></b>
-      and <b>Prof. Chunyan Miao</b>. Before that I received my bachelor's degree from
+      and <b>Prof. Chunyan Miao</b>. I am also a <b>two-time founder and CEO</b>: I built and led two startups
+      before and during my Ph.D., shipping <b>DreamFactory</b> as CEO of my first company and later founding
+      <b>Pask.ai</b>, where our proactive agent work grew out of real product needs. Before that I received my
+      bachelor's degree from
       <b><a href="https://english.bit.edu.cn/" target="_blank" rel="noopener">Beijing Institute of Technology</a></b>,
-      was admitted to <b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b>
-      for graduate study, and interned at the
-      <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b>
+      studied at <b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b>,
+      and interned at the <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b>
       under the supervision of Dr. Jin Xu.
     </p>
 
@@ -583,22 +590,23 @@
       My research focuses on <b>large audio language models</b> and <b>real-time speech interaction</b> —
       building models that hear, think and speak at the same time. I led the
       <b><a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Mini-Omni</a></b> series,
-      among the first open-source end-to-end speech-to-speech conversational models, together with
-      <b>Audio-Reasoner</b>, <b>Mini-Omni-Reasoner</b>, <b>Mega-ASR</b> and the <b>Audio Interaction Model</b>.
+      the first open-source end-to-end speech-to-speech conversational models, whose architecture has since been
+      adopted as a starting point by a generation of omni models, together with <b>Audio-Reasoner</b>,
+      <b>Mini-Omni-Reasoner</b>, <b>Mega-ASR</b>, the <b>Audio Interaction Model</b> and <b>VoiceMem</b>.
       I hold research to one bar: it has to be worth doing. Going forward I keep pushing on always-on
       multimodal interaction, with a focus on <b>interactivity, robustness, reasoning and proactivity</b>.
     </p>
 
     <p>
-      Outside the lab I served as founder &amp; CEO of <b>Pask.ai</b>, advise industry teams on speech
-      technology, have played in symphony orchestras for 16 years, and love animals — many of my projects
-      use a Shiba Inu avatar in memory of Guagua, who grew up with me.
+      Outside the lab I advise industry teams on speech technology, have played in symphony orchestras for
+      16 years, and love animals — many of my projects use a Shiba Inu avatar in memory of Guagua, who grew
+      up with me.
     </p>
 
     <div class="metrics">
       <div class="metric"><b id="m-citations">605</b> Citations</div>
       <div class="metric"><i class="fa-solid fa-star"></i> <b id="m-stars">&mdash;</b> GitHub Stars</div>
-      <div class="metric"><b>7</b> Open-source models &amp; datasets</div>
+      <div class="metric"><b>2×</b> Founder &amp; CEO</div>
       <div class="metric"><b>#1</b> Paper of the Day on Hugging Face</div>
     </div>
   </section>
@@ -606,8 +614,8 @@
 
   <!-- =========================================================
        NEWS
-       EDIT: months below are placeholders — correct them.
-       EDIT: featured images live in news/*.jpg (any size, 4:3-ish looks best).
+       EDIT: months are my best guess — correct them.
+       EDIT: the three featured pictures go in news/*.jpg
   ========================================================= -->
   <section id="news">
     <h2>News</h2>
@@ -617,54 +625,53 @@
       <li class="featured">
         <span class="when">08/2026</span>
         <div class="what">
+          <img class="news-img" src="news/voicemem.jpg" alt="VoiceMem" onerror="this.style.display='none'">
           <div class="text">
-            🎉 Invited to serve as a <b>speech technology advisor</b> at
-            <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi</a></b>,
-            and to give an invited talk at <b>Xiaomi AI Lab</b> on real-time audio interaction.
+            🎉 We release <b>VoiceMem</b>, the <b>first streaming dual-brain memory architecture for voice agents</b>:
+            a fast pathway that keeps the conversation flowing and a slow pathway that consolidates long-term memory
+            in the background, so a voice agent can remember across sessions without ever pausing to think.
           </div>
-          <img class="news-img" src="news/xiaomi.jpg" alt="Xiaomi AI Lab talk" onerror="this.style.display='none'">
         </div>
       </li>
 
       <li class="featured">
-        <span class="when">06/2026</span>
+        <span class="when">08/2026</span>
         <div class="what">
+          <img class="news-img" src="news/tsinghua.jpg" alt="Talk at Tsinghua University" onerror="this.style.display='none'">
+          <div class="text">
+            🎤 Invited to give a talk at
+            <b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b>
+            on real-time audio interaction and where large audio language models go next.
+          </div>
+        </div>
+      </li>
+
+      <li class="featured">
+        <span class="when">07/2026</span>
+        <div class="what">
+          <img class="news-img" src="news/ffasr.jpg" alt="FFASR leaderboard" onerror="this.style.display='none'">
           <div class="text">
             🏅 <b><a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b>
-            takes the <b>gold medal</b> on the
+            ranks <b>first</b> on the
             <b><a href="https://huggingface.co/spaces/treble-technologies/ffasr" target="_blank" rel="noopener">FFASR Leaderboard</a></b>,
             the far-field ASR benchmark run by
             <a href="https://www.treble.tech/" target="_blank" rel="noopener">Treble Technologies</a> and
             <a href="https://huggingface.co/blog/ffasr-leaderboard" target="_blank" rel="noopener">Hugging Face</a>.
           </div>
-          <img class="news-img" src="news/ffasr.jpg" alt="FFASR leaderboard" onerror="this.style.display='none'">
         </div>
       </li>
 
-      <li class="featured">
+      <li>
+        <span class="when">07/2026</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.ntu.edu.sg/" target="_blank" rel="noopener">Nanyang Technological University</a></b>.</span>
+      </li>
+
+      <li>
         <span class="when">06/2026</span>
-        <div class="what">
-          <div class="text">
-            🎤 Invited to give a talk at
-            <b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b>,
-            Asia's largest AI conference, held at Marina Bay Sands on 10–11 June.
-          </div>
-          <img class="news-img" src="news/superai.jpg" alt="SuperAI Singapore" onerror="this.style.display='none'">
-        </div>
-      </li>
-
-      <li>
-        <span class="when">05/2026</span>
-        <span class="what">🎉 <b><a href="https://huggingface.co/papers/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b>
-          is selected as the <b>#1 Paper of the Day</b> on
-          <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face</a>.</span>
-      </li>
-
-      <li>
-        <span class="when">05/2026</span>
-        <span class="what">🤝 Invited to serve as an <b>advisor</b> at
-          <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b>,
-          and to give a technical talk there on speech interaction for embodied agents.</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b>,
+          Asia's largest AI conference, at Marina Bay Sands.</span>
       </li>
 
     </ul>
@@ -674,9 +681,12 @@
 
       <li>
         <span class="when">06/2026</span>
-        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">Audio Interaction Model</a></b>
-          is released — the next generation of LALMs, with the <b>SoundFlow</b> framework, the
-          <b>StreamAudio-2M</b> dataset and new benchmarks for proactive audio intervention.
+        <span class="what">🎉 We release the
+          <b><a href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">Audio Interaction Model</a></b>,
+          the <b>first fully audio-driven real-time model</b>: it listens continuously and decides on its own when
+          to stay silent and when to speak, with the <b>SoundFlow</b> framework, the <b>StreamAudio-2M</b> corpus
+          (2.6M items, 302K hours, 7 capability families) and <b>Proactive-Sound-Bench</b>.
+          <a href="https://xzf-thu.github.io/Audio-Interaction" target="_blank" rel="noopener">Project</a> &middot;
           <a href="https://github.com/xzf-thu/Audio-Interaction" target="_blank" rel="noopener">Code</a></span>
       </li>
 
@@ -687,31 +697,40 @@
       </li>
 
       <li>
-        <span class="when">06/2026</span>
-        <span class="what">🎤 Invited talk at
-          <b><a href="https://klingai.com/" target="_blank" rel="noopener">Kling AI (可灵)</a></b>
-          on audio-visual generation and real-time interaction.</span>
-      </li>
-
-      <li>
         <span class="when">05/2026</span>
-        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b> is released —
-          the first foundation ASR built for the real world: 7 atomic acoustic conditions, 54 compound
-          scenarios, 2.6M samples and up to <b>~30% gains</b> over SOTA in the wild.
+        <span class="what">🎉 We release
+          <b><a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR</a></b>,
+          a speech recognition model built for <b>every acoustic scene</b>, improving over
+          <b>Qwen3-ASR</b> by <b>more than 30%</b> in the wild.
           <a href="https://github.com/xzf-thu/Mega-ASR" target="_blank" rel="noopener">Code</a></span>
       </li>
 
       <li>
         <span class="when">05/2026</span>
-        <span class="what">🎉 <b>Deep-Reporter</b>, deep research for grounded multimodal long-form generation,
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://shokz.com/" target="_blank" rel="noopener">Shokz (韶音)</a></b>
+          on audio interaction for wearable devices.</span>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.plaud.ai/" target="_blank" rel="noopener">PLAUD.AI</a></b>
+          on always-on recording and on-device speech understanding.</span>
+      </li>
+
+      <li>
+        <span class="when">05/2026</span>
+        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2604.10741" target="_blank" rel="noopener">Deep-Reporter</a></b>, deep research for grounded multimodal long-form generation,
           is accepted by <b><a href="https://2026.aclweb.org/" target="_blank" rel="noopener">ACL 2026</a></b>.</span>
       </li>
 
       <li>
         <span class="when">04/2026</span>
-        <span class="what">🎤 Invited to give a talk at
-          <b><a href="https://shokz.com/" target="_blank" rel="noopener">Shokz (韶音)</a></b>
-          on audio interaction for wearable devices.</span>
+        <span class="what">📰 <b><a href="https://arxiv.org/abs/2604.08000" target="_blank" rel="noopener">PASK</a></b>
+          is featured by <b><a href="https://finance.sina.com.cn/wm/2026-04-28/doc-inhvzshf1707183.shtml" target="_blank" rel="noopener">AI Era (新智元)</a></b> —
+          "streaming intent detection + perpetual memory: NUS &amp; NTU bring a Jarvis-style AI into reality".
+          <a href="https://xzf-thu.github.io/Pask/" target="_blank" rel="noopener">Project</a></span>
       </li>
 
       <li>
@@ -724,22 +743,8 @@
       <li>
         <span class="when">03/2026</span>
         <span class="what">🤝 Invited technical exchange at
-          <b><a href="https://www.plaud.ai/" target="_blank" rel="noopener">PLAUD.AI</a></b>
-          on always-on recording and on-device speech understanding.</span>
-      </li>
-
-      <li>
-        <span class="when">02/2026</span>
-        <span class="what">🤝 Invited technical exchange at
           <b><a href="https://www.agora.io/en/" target="_blank" rel="noopener">Agora (声网)</a></b>
           on real-time conversational AI.</span>
-      </li>
-
-      <li>
-        <span class="when">02/2026</span>
-        <span class="what">📰 <b>PASK</b> is featured by
-          <b><a href="#" target="_blank" rel="noopener">AI Era (新智元)</a></b>.
-          <!-- EDIT: paste the 新智元 article URL in the href above --></span>
       </li>
 
       <li>
@@ -750,55 +755,128 @@
 
       <li>
         <span class="when">09/2025</span>
+        <span class="what">🎉 We release
+          <b><a href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">Mini-Omni-Reasoner</a></b>,
+          the <b>first model that reasons while it speaks</b> — silent thinking tokens interleaved with spoken
+          tokens, so reasoning costs no extra latency. Covered by
+          <b><a href="https://mp.weixin.qq.com/s/HnmKxecS4ZzrVj-rQC4Qrw" target="_blank" rel="noopener">Synced (机器之心)</a></b>.
+          <a href="https://github.com/xzf-thu/Mini-Omni-Reasoner" target="_blank" rel="noopener">Code</a></span>
+      </li>
+
+      <li>
+        <span class="when">09/2025</span>
         <span class="what">🎉 <b><a href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">Audio-Reasoner</a></b>
           is accepted by <b><a href="https://2025.emnlp.org/" target="_blank" rel="noopener">EMNLP 2025</a></b> (Main Conference).</span>
       </li>
 
       <li>
         <span class="when">08/2025</span>
-        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">Mini-Omni-Reasoner</a></b>
-          is released, pioneering the <b>token-level "thinking-in-speaking"</b> paradigm, and is covered by
-          <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b>.
-          <!-- EDIT: you can point the Synced link at the exact article --></span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.zhipuai.cn/en" target="_blank" rel="noopener">Zhipu AI (智谱)</a></b>.</span>
       </li>
 
       <li>
         <span class="when">07/2025</span>
-        <span class="what">🎉 <b>PASK</b>: Providing Answer before AsKing toward Proactive AI Agent is accepted by
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.kunlun-tech.com/en" target="_blank" rel="noopener">Kunlun Tech / Skywork AI (昆仑万维)</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">07/2025</span>
+        <span class="what">🎉 <b><a href="https://dl.acm.org/doi/10.1145/3746027.3754487" target="_blank" rel="noopener">PASK</a></b>: Providing Answer before AsKing toward Proactive AI Agent is accepted by
           <b><a href="https://acmmm2025.org/" target="_blank" rel="noopener">ACM MM 2025</a></b> (Demo).</span>
       </li>
 
       <li>
+        <span class="when">05/2025</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b>
+          on audio reasoning.</span>
+      </li>
+
+      <li>
+        <span class="when">04/2025</span>
+        <span class="what">🥈 <b><a href="https://github.com/xzf-thu/Audio-Reasoner" target="_blank" rel="noopener">Audio-Reasoner</a></b>,
+          the first audio reasoning model, takes the <b>silver medal</b> on the official
+          <a href="https://sakshi113.github.io/mmau_homepage/" target="_blank" rel="noopener">MMAU benchmark</a> leaderboard.</span>
+      </li>
+
+      <li>
         <span class="when">03/2025</span>
-        <span class="what">🎉 <b><a href="https://github.com/xzf-thu/Audio-Reasoner" target="_blank" rel="noopener">Audio-Reasoner</a></b>
-          and the <b>CoTA</b> dataset (1.2M reasoning-rich samples) are released, setting state of the art on
-          MMAU-mini (+25.42%), AIR-Bench and MELD.</span>
+        <span class="what">🎉 We release
+          <b><a href="https://arxiv.org/abs/2503.02318" target="_blank" rel="noopener">Audio-Reasoner</a></b>
+          and the <b>CoTA</b> dataset (1.2M reasoning-rich samples), lifting MMAU-mini by <b>+25.42%</b>,
+          AIR-Bench by <b>+14.57%</b> and MELD by <b>+8.01%</b>.</span>
+      </li>
+
+      <li>
+        <span class="when">03/2025</span>
+        <span class="what">🏛️ <b>Mini-Omni</b> is credited by
+          <b><a href="https://arxiv.org/abs/2503.20215" target="_blank" rel="noopener">Qwen2.5-Omni</a></b>
+          as an architectural basis for its end-to-end speech generation design.</span>
+      </li>
+
+      <li>
+        <span class="when">01/2025</span>
+        <span class="what">⭐ <b><a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Mini-Omni2</a></b>
+          passes <b>1.5k GitHub stars</b>.</span>
+      </li>
+
+      <li>
+        <span class="when">12/2024</span>
+        <span class="what">⭐ <b><a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Mini-Omni</a></b>
+          passes <b>3k GitHub stars</b>.</span>
       </li>
 
       <li>
         <span class="when">10/2024</span>
-        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">Mini-Omni2</a></b>
-          is released — an open-source GPT-4o-style assistant with vision, speech and duplex interruption.
+        <span class="what">🤝 Invited to serve as an <b>advisor</b> at
+          <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">10/2024</span>
+        <span class="what">🤝 Invited to give a talk at, and to serve as <b>speech technology advisor</b> to,
+          <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi (小米)</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">10/2024</span>
+        <span class="what">🎤 Invited to give a talk at
+          <b><a href="https://klingai.com/" target="_blank" rel="noopener">Kling AI (可灵)</a></b>.</span>
+      </li>
+
+      <li>
+        <span class="when">10/2024</span>
+        <span class="what">🎉 We release
+          <b><a href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">Mini-Omni2</a></b>,
+          the <b>first real-time audio-visual interaction model with duplex capability</b> — it sees, listens and
+          talks at once, and can be interrupted mid-sentence.
           <a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Code</a></span>
       </li>
 
       <li>
         <span class="when">09/2024</span>
         <span class="what">📰 <b>Mini-Omni</b> is covered by
-          <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b>.</span>
+          <b><a href="https://news.qq.com/rain/a/20240906A08BCX00" target="_blank" rel="noopener">Synced (机器之心)</a></b> —
+          "the first open-source end-to-end speech dialogue model".</span>
       </li>
 
       <li>
         <span class="when">08/2024</span>
-        <span class="what">🎉 <b><a href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">Mini-Omni</a></b>
-          is released and becomes the <b>#1 Paper of the Day</b> on
-          <a href="https://huggingface.co/papers/2408.16725" target="_blank" rel="noopener">Hugging Face</a>:
-          the first open-source end-to-end model that can hear, talk and think in streaming.</span>
+        <span class="what">🎉 We release
+          <b><a href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">Mini-Omni</a></b>,
+          the first open-source end-to-end model that can hear, talk and think in streaming. It becomes the
+          <b>#1 Paper of the Day</b> on
+          <a href="https://huggingface.co/papers/2408.16725" target="_blank" rel="noopener">Hugging Face</a>.</span>
       </li>
 
       <li>
-        <span class="when">08/2024</span>
-        <span class="what">🎉 <b>DreamFactory</b>, a multi-agent framework for multi-scene long video generation, is released.</span>
+        <span class="when">07/2024</span>
+        <span class="what">🎉 As <b>founder and CEO</b> of my first startup, we release
+          <b><a href="https://arxiv.org/abs/2408.11788" target="_blank" rel="noopener">DreamFactory</a></b>,
+          a multi-agent framework for multi-scene long video generation, covered by
+          <b><a href="https://www.sohu.com/a/768711568_99985415" target="_blank" rel="noopener">Synced (机器之心)</a></b>.</span>
       </li>
 
     </ul>
@@ -808,144 +886,335 @@
 
 
   <!-- =========================================================
-       SELECTED PUBLICATIONS
+       PUBLICATIONS  (reverse chronological)
+       EDIT: every entry starts with a "Project Page" link whose
+             href is still "#". Replace them with your real pages.
+       EDIT: the "Cited by" lines list representative citing work —
+             please verify / trim them against Google Scholar.
   ========================================================= -->
   <section id="publications">
-    <h2>Selected Publications
+    <h2>Publications
       <span class="sub">* equal contribution &nbsp;|&nbsp; full list on
         <a href="https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=zhifei+xie&oq=" target="_blank" rel="noopener">Google Scholar</a>
       </span>
     </h2>
 
+    <!-- ---------- VoiceMem ----------
+         Fill in the fields below once the report is public.
+    <div class="pub">
+      <div class="thumb"><img src="images/VoiceMem.png" alt="VoiceMem"
+        onerror="this.closest('.thumb').style.display='none'"></div>
+      <div class="info">
+        <a class="title" href="#" target="_blank" rel="noopener">VoiceMem: A Streaming Dual-Brain Memory Architecture for Voice Agents</a>
+        <div class="authors"><b>Zhifei Xie</b>, ...</div>
+        <div class="venue">arXiv, 2026</div>
+        <div class="links">
+          <a href="#" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
+          <a href="#" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="#" target="_blank" rel="noopener">Code</a>
+        </div>
+        <p class="tldr">...</p>
+      </div>
+    </div>
+    ---------- end VoiceMem ---------- -->
+
     <!-- ---------- Audio Interaction Model ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/Audio-Interaction.png" alt="Audio Interaction Model"></div>
+      <div class="thumb"><img src="images/Audio-Interaction.png" alt="Audio Interaction Model"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">Audio Interaction Model</a>
         <div class="authors">
           <b>Zhifei Xie</b>, Zihang Liu, Ze An, Xiaobin Hu, Yue Liao, Ziyang Ma,
           Dongchao Yang, Mingbao Lin, Deheng Ye, Shuicheng Yan, Chunyan Miao
         </div>
-        <div class="venue">arXiv, 2026 <span class="flag">(Next generation of LALMs)</span></div>
+        <div class="venue">arXiv, 2026 <span class="flag">(First fully audio-driven real-time model)</span></div>
         <div class="links">
+          <a href="https://xzf-thu.github.io/Audio-Interaction" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2606.05121" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
-          <a href="https://huggingface.co/papers/2606.05121" target="_blank" rel="noopener">HF paper</a> <span class="sep">/</span>
-          <a href="https://huggingface.co/datasets/zhifeixie/StreamAudio-2M" target="_blank" rel="noopener">Dataset</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/zhifeixie/AudioInteraction" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/datasets/zhifeixie/StreamAudio-2M" target="_blank" rel="noopener">StreamAudio-2M</a> <span class="sep">/</span>
+          <a href="https://github.com/masaz14/Proactive-Sound-Effect-Benchmark" target="_blank" rel="noopener">Benchmark</a> <span class="sep">/</span>
+          <a href="https://www.youtube.com/watch?v=4YuBkMm1cmU" target="_blank" rel="noopener">Video</a> <span class="sep">/</span>
           <a href="https://github.com/xzf-thu/Audio-Interaction" target="_blank" rel="noopener">Code</a>
           <img src="https://img.shields.io/github/stars/xzf-thu/Audio-Interaction.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          A unified streaming LALM that listens to sound, environment and instructions in real time and decides,
-          at every moment, whether to stay silent or speak — realised end to end by <b>SoundFlow</b>.
+          Every speech assistant so far waits to be spoken to. The Audio Interaction Model removes that
+          assumption: it treats the whole soundscape — speech, ambient events, and instructions — as one
+          continuous stream, and at every moment decides for itself whether to stay silent or intervene.
+          We formalise the always-on <b>perceive–decide–respond</b> loop, realise it end to end with the
+          <b>SoundFlow</b> framework, and release <b>StreamAudio-2M</b> (2.6M items, 302K hours, 7 capability
+          families) plus <b>Proactive-Sound-Bench</b>, turning "when should the model speak?" into a measurable problem.
+          This is the interaction paradigm we believe the next generation of LALMs will be built on.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- MMAE ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/MMAE.png" alt="MMAE"
+        onerror="this.closest('.thumb').style.display='none'"></div>
+      <div class="info">
+        <a class="title" href="https://github.com/ddlBoJack/MMAE" target="_blank" rel="noopener">MMAE: A Massive Multitask Audio Editing Benchmark</a>
+        <div class="authors">
+          Ziyang Ma*, Ruiqi Yan*, Ruiyang Xu*, Jie Fang*, Zhikang Niu*, Yi-Wen Chao*, Wenming Tu*,
+          Tianrui Wang*, &hellip;, <b>Zhifei Xie</b>, &hellip;, Kai Yu, Liefeng Bo, Eng-Siong Chng, Xie Chen
+        </div>
+        <div class="venue">arXiv, 2026</div>
+        <div class="links">
+          <a href="https://github.com/ddlBoJack/MMAE" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
+          <a href="https://arxiv.org/abs/2606.07229" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/datasets/BoJack/MMAE" target="_blank" rel="noopener">Benchmark</a>
+        </div>
+        <p class="tldr">
+          Instruction-based audio editing arrived fast; the evaluation infrastructure did not. MMAE is the
+          first comprehensive testbed for general-purpose instruction-based audio editing: <b>7 audio
+          modalities</b>, <b>6 levels of task complexity</b> up to multi-hop and multi-round editing,
+          <b>8 operation types</b>, and 2,000 human-agent curated samples with a rubric-based protocol.
+          Its first verdict is sobering — even the best current model scores an exact-match edit rate
+          <b>below 5%</b>, which is exactly why a shared yardstick matters.
         </p>
       </div>
     </div>
 
     <!-- ---------- Mega-ASR ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/Mega-ASR.png" alt="Mega-ASR"></div>
+      <div class="thumb"><img src="images/Mega-ASR.png" alt="Mega-ASR"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">Mega-ASR: Towards In-the-wild² Speech Recognition via Scaling up Real-world Acoustic Simulation</a>
         <div class="authors">
           <b>Zhifei Xie</b>, Kaiyu Pang, Haobin Zhang, Deheng Ye, Xiaobin Hu, Shuicheng Yan, Chunyan Miao
         </div>
-        <div class="venue">arXiv, 2026 <span class="flag">(Gold medal, FFASR Leaderboard)</span></div>
+        <div class="venue">arXiv, 2026 <span class="flag">(#1 on the FFASR Leaderboard)</span></div>
         <div class="links">
+          <a href="https://xzf-thu.github.io/Mega-ASR/" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2605.19833" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
           <a href="https://huggingface.co/zhifeixie/Mega-ASR" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/datasets/zhifeixie/Voices-in-the-Wild-2M" target="_blank" rel="noopener">Data</a> <span class="sep">/</span>
           <a href="https://github.com/xzf-thu/Voices-in-the-Wild-Bench" target="_blank" rel="noopener">Benchmark</a> <span class="sep">/</span>
           <a href="https://github.com/xzf-thu/Mega-ASR" target="_blank" rel="noopener">Code</a>
           <img src="https://img.shields.io/github/stars/xzf-thu/Mega-ASR.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          Breaking the acoustic robustness bottleneck with <b>Voices-in-the-Wild-2M</b>: 7 classic acoustic phenomena,
-          54 physically plausible compound scenarios, and WER-gated policy optimisation.
+          ASR looks solved on clean benchmarks and falls apart the moment a room, a crowd or a moving speaker
+          enters the picture. Mega-ASR attacks that gap by scaling <b>physically grounded acoustic simulation</b>
+          instead of collecting more clean data: 7 atomic acoustic conditions composed into 54 real-world
+          scenarios and 2.6M simulated samples (<b>Voices-in-the-Wild-2M</b>), trained with WER-gated policy
+          optimisation on top of Qwen3-ASR-1.7B. The result improves over <b>Qwen3-ASR</b> by <b>more than 30%</b>
+          under in-the-wild conditions and ranks <b>first on the FFASR far-field leaderboard</b> — a recognition
+          backbone that holds up where products actually run.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- Deep-Reporter ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/Deep-Reporter.png" alt="Deep-Reporter"
+        onerror="this.closest('.thumb').style.display='none'"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2604.10741" target="_blank" rel="noopener">Deep-Reporter: Deep Research for Grounded Multimodal Long-Form Generation</a>
+        <div class="authors">
+          Fangda Ye*, Kuicai Dong*, <b>Zhifei Xie</b>*, Yuxin Hu*, Yihang Yin, Shurui Huang,
+          Shikai Dong, Chen Zhang, Jianzhu Bao, Shuicheng Yan
+        </div>
+        <div class="venue">ACL, 2026</div>
+        <div class="links">
+          <a href="https://github.com/fangda-ye/Deep-Report" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
+          <a href="https://arxiv.org/abs/2604.10741" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://aclanthology.org/2026.acl-long.1909/" target="_blank" rel="noopener">ACL Anthology</a> <span class="sep">/</span>
+          <a href="https://github.com/fangda-ye/Deep-Report" target="_blank" rel="noopener">Code</a>
+        </div>
+        <p class="tldr">
+          Long-form generation is where agents quietly hallucinate the most: the longer the report, the further
+          it drifts from its sources — and agentic search frameworks are still text-only, while real expert
+          reports are full of figures. Deep-Reporter is a unified agentic framework for <b>grounded multimodal
+          long-form generation</b>: multimodal search and filtering, checklist-guided incremental synthesis for
+          image-text integration and citation placement, and recurrent context management for long-range
+          coherence. We also release <b>M²LongBench</b> — 247 research tasks across 9 domains with a stable
+          multimodal sandbox — making this new task measurable without commercial APIs.
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- PASK (long-term memory) ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/PASK.png" alt="PASK"
+        onerror="this.closest('.thumb').style.display='none'"></div>
+      <div class="info">
+        <a class="title" href="https://xzf-thu.github.io/Pask/" target="_blank" rel="noopener">PASK: Toward Intent-Aware Proactive Agents with Long-Term Memory</a>
+        <div class="authors">
+          <b>Zhifei Xie</b> (project leader), Zongzheng Hu, Fangda Ye, Xin Zhang, Haobo Chai, Zihang Liu,
+          Pengcheng Wu, Guibin Zhang, Yue Liao, Xiaobin Hu, Deheng Ye, Chunyan Miao, Shuicheng Yan
+        </div>
+        <div class="venue">arXiv, 2026 <span class="flag">(Project leader &middot; work done as CEO at Pask.ai)</span></div>
+        <div class="links">
+          <a href="https://xzf-thu.github.io/Pask/" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
+          <a href="https://arxiv.org/abs/2604.08000" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://github.com/xzf-thu/Pask" target="_blank" rel="noopener">Download the app</a> <span class="sep">/</span>
+          <a href="https://finance.sina.com.cn/wm/2026-04-28/doc-inhvzshf1707183.shtml" target="_blank" rel="noopener">Media (新智元)</a>
+        </div>
+        <p class="tldr">
+          Assistants answer; they do not anticipate. Proactivity has stayed a lab demo because the real setting is
+          hard: ambiguous latent needs, long horizons, hard latency budgets. PASK proposes <b>DD-MM-PAS</b>
+          (demand detection, memory modelling, proactive agent system) as a general paradigm for streaming
+          proactive agents, and instantiates it in a shipped product with the streaming <b>IntentFlow</b> model and
+          a hybrid workspace/user/global memory. We also release <b>LatentNeeds-Bench</b>, built from
+          user-consented real data. Under latency constraints IntentFlow matches leading Gemini3-Flash models
+          while surfacing deeper intent — proactivity as a working system, not a demo trick.
         </p>
       </div>
     </div>
 
     <!-- ---------- Mini-Omni-Reasoner ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/Mini-Omni-Reasoner.png" alt="Mini-Omni-Reasoner"></div>
+      <div class="thumb"><img src="images/Mini-Omni-Reasoner.png" alt="Mini-Omni-Reasoner"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">Mini-Omni-Reasoner: Token-Level Thinking-in-Speaking in Large Speech Models</a>
         <div class="authors">
           <b>Zhifei Xie</b>, Ziyang Ma, Zihang Liu, Kaiyu Pang, Hongyu Li, Jialin Zhang,
           Yue Liao, Deheng Ye, Chunyan Miao, Shuicheng Yan
         </div>
-        <div class="venue">arXiv, 2025</div>
+        <div class="venue">arXiv, 2025 <span class="flag">(First model that reasons while speaking)</span></div>
         <div class="links">
+          <a href="https://github.com/xzf-thu/Mini-Omni-Reasoner" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2508.15827" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
-          <a href="https://github.com/xzf-thu/Mini-Omni-Reasoner" target="_blank" rel="noopener">Code</a>
+          <a href="https://github.com/xzf-thu/Mini-Omni-Reasoner" target="_blank" rel="noopener">Code</a> <span class="sep">/</span>
+          <a href="https://mp.weixin.qq.com/s/HnmKxecS4ZzrVj-rQC4Qrw" target="_blank" rel="noopener">Media (机器之心)</a>
           <img src="https://img.shields.io/github/stars/xzf-thu/Mini-Omni-Reasoner.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          Instead of thinking before speaking, the model interleaves silent reasoning tokens with spoken response
-          tokens — fluent, low-latency speech that stays logically grounded.
+          Speech models have had to choose between thinking and talking: reason first and the user waits,
+          answer immediately and the reasoning is gone. Mini-Omni-Reasoner dissolves the trade-off by
+          interleaving silent reasoning tokens with spoken tokens <b>inside a single stream</b> — the model
+          literally thinks between the words it says. It lifts arithmetic reasoning on Spoken-MQA by
+          <b>+19.1%</b> at <b>zero additional decoding latency</b>, and introduces <b>Spoken-Math-Problems-3M</b>
+          to train it. "Thinking-in-speaking" has since become a named paradigm in spoken reasoning.
         </p>
       </div>
     </div>
 
     <!-- ---------- Audio-Reasoner ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/audio-reasoner.png" alt="Audio-Reasoner"></div>
+      <div class="thumb"><img src="images/audio-reasoner.png" alt="Audio-Reasoner"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">Audio-Reasoner: Improving Reasoning Capability in Large Audio Language Models</a>
         <div class="authors">
           <b>Zhifei Xie</b>, Mingbao Lin, Zihang Liu, Pengcheng Wu, Shuicheng Yan, Chunyan Miao
         </div>
-        <div class="venue">EMNLP, 2025 <span class="flag">(Main Conference)</span></div>
+        <div class="venue">EMNLP, 2025 <span class="flag">(First audio reasoning model · Silver medal, MMAU)</span></div>
         <div class="links">
+          <a href="https://xzf-thu.github.io/Audio-Reasoner/" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2503.02318" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
           <a href="https://aclanthology.org/2025.emnlp-main.1216/" target="_blank" rel="noopener">ACL Anthology</a> <span class="sep">/</span>
           <a href="https://huggingface.co/zhifeixie/Audio-Reasoner" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
+          <a href="https://huggingface.co/datasets/zhifeixie/Audio-Reasoner-CoTA" target="_blank" rel="noopener">CoTA Dataset</a> <span class="sep">/</span>
           <a href="https://github.com/xzf-thu/Audio-Reasoner" target="_blank" rel="noopener">Code</a>
           <img src="https://img.shields.io/github/stars/xzf-thu/Audio-Reasoner.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          The first large audio language model with native in-depth thinking. Trained on <b>CoTA</b>
-          (1.2M reasoning-rich samples), it lifts MMAU-mini by <b>+25.42%</b>.
+          The reasoning revolution skipped audio entirely. Audio-Reasoner was the <b>first large audio language
+          model with native in-depth thinking</b>, showing that structured chain-of-thought training transfers
+          to sound, music and speech. Trained on <b>CoTA</b> — 1.2M reasoning-rich samples we built and released —
+          it set state of the art with <b>+25.42%</b> on MMAU-mini, <b>+14.57%/+10.13%</b> on AIR-Bench and
+          <b>+8.01%</b> on MELD, and took the <b>silver medal</b> on the official MMAU leaderboard. CoTA and the
+          model are now standard baselines for audio reasoning research.
+        </p>
+        <p class="citedby">
+          <b>Cited by</b> Qwen3-Omni · Audio Flamingo 3 · MMAR (NeurIPS 2025) · MMAU-Pro · SonicBench ·
+          referenced by the <a href="https://audio-reasoning-challenge.github.io/" target="_blank" rel="noopener">Interspeech 2026 Audio Reasoning Challenge</a>
         </p>
       </div>
     </div>
 
     <!-- ---------- Mini-Omni2 ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/Mini-Omni2.png" alt="Mini-Omni2"></div>
+      <div class="thumb"><img src="images/Mini-Omni2.png" alt="Mini-Omni2"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">Mini-Omni2: Towards Open-source GPT-4o with Vision, Speech and Duplex Capabilities</a>
         <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
-        <div class="venue">arXiv, 2024</div>
+        <div class="venue">arXiv, 2024 <span class="flag">(First real-time audio-visual duplex model · 1.5k+ stars)</span></div>
         <div class="links">
+          <a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2410.11190" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
           <a href="https://huggingface.co/gpt-omni/mini-omni2" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
           <a href="https://github.com/gpt-omni/mini-omni2" target="_blank" rel="noopener">Code</a>
           <img src="https://img.shields.io/github/stars/gpt-omni/mini-omni2.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          An omni-interactive assistant that understands image, audio and text, replies with real-time voice,
-          and can be interrupted mid-sentence — no extra ASR or TTS required.
+          Two months after GPT-4o's demo, no one outside a frontier lab could run anything like it.
+          Mini-Omni2 was the <b>first open-source real-time audio-visual interaction model with duplex
+          capability</b>: it sees, hears and answers in live voice, and — crucially — it can be
+          <b>interrupted mid-sentence</b>, which is what makes a conversation feel human. All of it end to end,
+          with no bolted-on ASR or TTS, in a model small enough to run on a single GPU. It gave the open
+          community a working reference for GPT-4o-style interaction and passed <b>1.5k GitHub stars</b>.
+        </p>
+        <p class="citedby">
+          <b>Cited by</b> Qwen2.5-Omni · Baichuan-Omni-1.5 · MiniCPM-o · VITA-1.5 · Step-Audio · EMOVA
         </p>
       </div>
     </div>
 
     <!-- ---------- Mini-Omni ---------- -->
     <div class="pub">
-      <div class="thumb"><img src="images/Mini-Omni.png" alt="Mini-Omni"></div>
+      <div class="thumb"><img src="images/Mini-Omni.png" alt="Mini-Omni"
+        onerror="this.closest('.thumb').style.display='none'"></div>
       <div class="info">
         <a class="title" href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">Mini-Omni: Language Models Can Hear, Talk While Thinking in Streaming</a>
         <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
-        <div class="venue">arXiv, 2024 <span class="flag">(#1 Paper of the Day, Hugging Face)</span></div>
+        <div class="venue">arXiv, 2024 <span class="flag">(#1 Paper of the Day on Hugging Face · 3k+ stars)</span></div>
         <div class="links">
+          <a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Project Page</a> <span class="sep">/</span>
           <a href="https://arxiv.org/abs/2408.16725" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
           <a href="https://huggingface.co/gpt-omni/mini-omni" target="_blank" rel="noopener">Model</a> <span class="sep">/</span>
           <a href="https://huggingface.co/spaces/gpt-omni/mini-omni" target="_blank" rel="noopener">Demo</a> <span class="sep">/</span>
-          <a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Code</a>
+          <a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">Code</a> <span class="sep">/</span>
+          <a href="https://news.qq.com/rain/a/20240906A08BCX00" target="_blank" rel="noopener">Media (机器之心)</a>
           <img src="https://img.shields.io/github/stars/gpt-omni/mini-omni.svg?style=social" alt="GitHub stars">
         </div>
         <p class="tldr">
-          The first open-source end-to-end model with direct speech-to-speech capability, using text-instructed
-          speech generation and batch-parallel decoding for real-time conversation.
+          Mini-Omni gave language models a voice of their own. It was the <b>first open-source model with direct
+          end-to-end speech-to-speech capability</b>: text-instructed parallel speech generation with
+          batch-parallel decoding lets the model think and talk in the same forward pass, removing the
+          ASR→LLM→TTS pipeline that had made open voice assistants slow and lifeless. Released in August 2024,
+          it became the <b>#1 Paper of the Day on Hugging Face</b>, passed <b>3k GitHub stars</b>, and its
+          architecture was adopted as a starting point across the omni-model wave that followed —
+          <b><a href="https://arxiv.org/abs/2503.20215" target="_blank" rel="noopener">Qwen2.5-Omni</a></b>
+          credits it as an architectural basis. It remains the most cited work of the series.
+        </p>
+        <p class="citedby">
+          <b>Cited by</b> Qwen2.5-Omni · Kimi-Audio · Step-Audio · GLM-4-Voice · Baichuan-Omni-1.5 ·
+          MiniCPM-o · LLaMA-Omni2 · Freeze-Omni
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- DreamFactory ---------- -->
+    <div class="pub">
+      <div class="thumb"><img src="images/DreamFactory.png" alt="DreamFactory"
+        onerror="this.closest('.thumb').style.display='none'"></div>
+      <div class="info">
+        <a class="title" href="https://arxiv.org/abs/2408.11788" target="_blank" rel="noopener">DreamFactory: Pioneering Multi-Scene Long Video Generation with a Multi-Agent Framework</a>
+        <div class="authors">
+          <b>Zhifei Xie</b>, Daniel Tang, Dingwei Tan, Jacques Klein, Tegawendé F. Bissyandé, Saad Ezzini
+        </div>
+        <div class="venue">Technical report, 2024 <span class="flag">(Work done as founder &amp; CEO)</span></div>
+        <div class="links">
+          <a href="https://arxiv.org/abs/2408.11788" target="_blank" rel="noopener">arXiv</a> <span class="sep">/</span>
+          <a href="https://www.semanticscholar.org/arxiv/2408.11788" target="_blank" rel="noopener">Semantic Scholar</a> <span class="sep">/</span>
+          <a href="https://www.sohu.com/a/768711568_99985415" target="_blank" rel="noopener">Media (机器之心)</a>
+        </div>
+        <p class="tldr">
+          Video models of the day could produce beautiful ten-second clips and nothing resembling a film.
+          DreamFactory reframed long video generation as a <b>production problem</b> rather than a sampling one:
+          a multi-agent framework where LLM agents take the roles of a film crew — script, storyboard, direction,
+          continuity — to keep characters and style consistent across many scenes. Built while I was founder and
+          CEO of my first startup, it was covered by Synced (机器之心) and remains one of the earliest
+          multi-agent takes on minutes-long video.
         </p>
       </div>
     </div>
@@ -961,42 +1230,23 @@
 
     <ul class="other">
       <li>
-        <span class="name">Deep-Reporter: Deep Research for Grounded Multimodal Long-Form Generation</span><br>
-        <span class="meta">F. Ye*, <b>Z. Xie</b>*, Y. Hu*, Y. Yin, S. Huang, S. Dong, J. Bao, S. Yan &nbsp;·&nbsp; <em>ACL 2026</em></span>
-      </li>
-      <li>
-        <span class="name">MMAE: A Massive Multitask Audio Editing Benchmark</span><br>
-        <span class="meta">Z. Ma, R. Yan, R. Xu, J. Fang, Z. Niu, Y.-W. Chao, W. Tu, T. Wang, Q. Chen, <b>Z. Xie</b>, et al. &nbsp;·&nbsp;
-          <em><a href="https://arxiv.org/abs/2606.07229" target="_blank" rel="noopener">arXiv 2026</a></em></span>
-      </li>
-      <li>
         <span class="name">HeartMula: A Family of Open Sourced Music Foundation Models</span><br>
         <span class="meta">D. Yang, Y. Xie, Y. Yin, Z. Wang, X. Yi, G. Zhu, X. Weng, Z. Xiong, Y. Ma, <b>Z. Xie</b>, et al. &nbsp;·&nbsp;
           <em><a href="https://arxiv.org/abs/2601.10547" target="_blank" rel="noopener">arXiv 2026</a></em></span>
       </li>
       <li>
-        <span class="name">PASK: Toward Intent-Aware Proactive Agents with Long-Term Memory</span><br>
-        <span class="meta"><b>Z. Xie</b>, Z. Hu, F. Ye, X. Zhang, H. Chai, Z. Liu, P. Wu, G. Zhang, Y. Liao, X. Hu, et al. &nbsp;·&nbsp;
-          <em>Technical report, 2026 (work done as CEO at Pask.ai)</em></span>
-      </li>
-      <li>
-        <span class="name">PASK: Providing Answer before AsKing toward Proactive AI Agent</span><br>
+        <span class="name"><a href="https://dl.acm.org/doi/10.1145/3746027.3754487" target="_blank" rel="noopener">PASK: Providing Answer before AsKing toward Proactive AI Agent</a></span><br>
         <span class="meta"><b>Z. Xie</b>, Z. Hu, G. Zhang, J. Zhang, Y. Liao, C. Miao, S. Yan &nbsp;·&nbsp; <em>ACM MM 2025 (Demo)</em></span>
-      </li>
-      <li>
-        <span class="name">DreamFactory: Pioneering Multi-Scene Long Video Generation with a Multi-Agent Framework</span><br>
-        <span class="meta"><b>Z. Xie</b>, D. Tang, D. Tan, J. Klein, T. F. Bissyandé, S. Ezzini &nbsp;·&nbsp;
-          <em>Technical report, 2024 (work done as CEO during the entrepreneurship period)</em></span>
-      </li>
-      <li>
-        <span class="name">Spider Silk-Inspired Environmentally Adaptive Intelligent Graphene Artificial Throat</span><br>
-        <span class="meta">Z. Su, L. Liang, <b>Z. Xie</b>, Y. Yang, L.-Q. Tao, T.-L. Ren &nbsp;·&nbsp;
-          <em>Chemical Engineering Journal, 2025</em></span>
       </li>
       <li>
         <span class="name">Development and Validation of a Wearable Intelligent Telerehabilitation Device for Postoperative Rehabilitation of Chronic Ankle Instability</span><br>
         <span class="meta">H. Liu, <b>Z. Xie</b>, R. Guo, Z. Ren, J. Ma, X. Wu, D. Jiang, T. Ren &nbsp;·&nbsp;
           <em>IEEE Transactions on Neural Systems and Rehabilitation Engineering, 2026</em></span>
+      </li>
+      <li>
+        <span class="name">Spider Silk-Inspired Environmentally Adaptive Intelligent Graphene Artificial Throat</span><br>
+        <span class="meta">Z. Su, L. Liang, <b>Z. Xie</b>, Y. Yang, L.-Q. Tao, T.-L. Ren &nbsp;·&nbsp;
+          <em>Chemical Engineering Journal, 2025</em></span>
       </li>
       <li>
         <span class="name">Flexible and Skin-Compatible rGO/PVDF Composite Sensor for Multi-Functional On-Skin Applications</span><br>
@@ -1014,13 +1264,25 @@
     <h2>Activities</h2>
 
     <div class="activity">
+      <div class="head"><i class="fa-solid fa-trophy"></i>Awards &amp; Honors</div>
+      <div class="body">
+        <ul>
+          <li><b>Gold Award</b>, <a href="https://www.ntu.edu.sg/" target="_blank" rel="noopener">NTU</a> Entrepreneurship Competition</li>
+          <li><b>National Scholarship</b>, Ministry of Education of China</li>
+          <li><b>Tsinghua University Scholarship</b></li>
+          <li><b>#1</b> on the <a href="https://huggingface.co/spaces/treble-technologies/ffasr" target="_blank" rel="noopener">FFASR Leaderboard</a> — Mega-ASR, 2026</li>
+          <li><b>Silver medal</b> on the <a href="https://sakshi113.github.io/mmau_homepage/" target="_blank" rel="noopener">MMAU Leaderboard</a> — Audio-Reasoner, 2025</li>
+          <li><b>#1 Paper of the Day</b> on <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face</a> — Mini-Omni (2024) and Mega-ASR (2026)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
       <div class="head"><i class="fa-solid fa-handshake"></i>Industry Advisory</div>
       <div class="body">
         <ul>
-          <li>Speech technology advisor,
-            <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi</a></b></li>
-          <li>Advisor,
-            <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b></li>
+          <li>Speech technology advisor, <b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi (小米)</a></b></li>
+          <li>Advisor, <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b></li>
         </ul>
       </div>
     </div>
@@ -1029,10 +1291,14 @@
       <div class="head"><i class="fa-solid fa-microphone-lines"></i>Invited Talks &amp; Exchanges</div>
       <div class="body">
         <ul>
-          <li><b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b>, Marina Bay Sands</li>
-          <li><b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi AI Lab</a></b> ·
+          <li><b><a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a></b> (2025, 2026) ·
+            <b><a href="https://www.ntu.edu.sg/" target="_blank" rel="noopener">Nanyang Technological University</a></b> ·
+            <b><a href="https://www.superai.com/" target="_blank" rel="noopener">SuperAI Singapore 2026</a></b></li>
+          <li><b><a href="https://www.mi.com/global/" target="_blank" rel="noopener">Xiaomi (小米)</a></b> ·
             <b><a href="https://klingai.com/" target="_blank" rel="noopener">Kling AI (可灵)</a></b> ·
-            <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b></li>
+            <b><a href="https://www.agibot.com/" target="_blank" rel="noopener">AgiBot (智元机器人)</a></b> ·
+            <b><a href="https://www.zhipuai.cn/en" target="_blank" rel="noopener">Zhipu AI (智谱)</a></b> ·
+            <b><a href="https://www.kunlun-tech.com/en" target="_blank" rel="noopener">Kunlun Tech (昆仑万维)</a></b></li>
           <li><b><a href="https://shokz.com/" target="_blank" rel="noopener">Shokz (韶音)</a></b> ·
             <b><a href="https://www.plaud.ai/" target="_blank" rel="noopener">PLAUD.AI</a></b> ·
             <b><a href="https://www.agora.io/en/" target="_blank" rel="noopener">Agora (声网)</a></b></li>
@@ -1044,12 +1310,28 @@
     </div>
 
     <div class="activity">
+      <div class="head"><i class="fa-solid fa-rocket"></i>Entrepreneurship</div>
+      <div class="body">
+        <ul>
+          <li><b>Founder &amp; CEO</b>, <b><a href="https://xzf-thu.github.io/Pask/" target="_blank" rel="noopener">Pask</a></b> —
+            proactive, intent-aware AI agents with long-term memory</li>
+          <li><b>Founder &amp; CEO</b>, first startup — multi-agent long video generation (DreamFactory)</li>
+          <li>Research intern, <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b> — supervised by Dr. Jin Xu</li>
+          <li>Research intern, <b>Inspirai</b> — where the Mini-Omni series was started</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="activity">
       <div class="head"><i class="fa-solid fa-newspaper"></i>Media Coverage</div>
       <div class="body">
         <ul>
-          <li>Mini-Omni and Mini-Omni-Reasoner covered by
-            <b><a href="https://www.jiqizhixin.com/" target="_blank" rel="noopener">Synced (机器之心)</a></b></li>
-          <li>PASK featured by <b><a href="#" target="_blank" rel="noopener">AI Era (新智元)</a></b></li>
+          <li>Synced (机器之心) —
+            <a href="https://www.sohu.com/a/768711568_99985415" target="_blank" rel="noopener">DreamFactory</a> ·
+            <a href="https://news.qq.com/rain/a/20240906A08BCX00" target="_blank" rel="noopener">Mini-Omni</a> ·
+            <a href="https://mp.weixin.qq.com/s/HnmKxecS4ZzrVj-rQC4Qrw" target="_blank" rel="noopener">Mini-Omni-Reasoner</a></li>
+          <li>AI Era (新智元) —
+            <a href="https://finance.sina.com.cn/wm/2026-04-28/doc-inhvzshf1707183.shtml" target="_blank" rel="noopener">PASK</a></li>
         </ul>
       </div>
     </div>
@@ -1066,34 +1348,12 @@
     </div>
 
     <div class="activity">
-      <div class="head"><i class="fa-solid fa-rocket"></i>Industry &amp; Entrepreneurship</div>
-      <div class="body">
-        <ul>
-          <li>Founder &amp; CEO, <b>Pask.ai</b> — proactive, intent-aware AI agents with long-term memory</li>
-          <li>Research intern, <b><a href="https://qwen.ai/" target="_blank" rel="noopener">Qwen Team</a></b> — supervised by Dr. Jin Xu</li>
-          <li>Research intern, <b>Inspirai</b> — where the Mini-Omni series was started</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="activity">
       <div class="head"><i class="fa-solid fa-code-branch"></i>Open Source</div>
       <div class="body">
         <ul>
           <li>Maintainer of the <b>Mini-Omni</b> series, <b>Audio-Reasoner</b>, <b>Mega-ASR</b> and
             <b>Audio-Interaction</b> — thousands of GitHub stars and widely used as baselines in the speech-LM community</li>
           <li>Open datasets: <b>CoTA</b>, <b>Spoken-Math-Problems-3M</b>, <b>Voices-in-the-Wild-2M</b>, <b>StreamAudio-2M</b></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="activity">
-      <div class="head"><i class="fa-solid fa-award"></i>Honors</div>
-      <div class="body">
-        <ul>
-          <li><b>Gold medal</b>, <a href="https://huggingface.co/spaces/treble-technologies/ffasr" target="_blank" rel="noopener">FFASR Leaderboard</a> — Mega-ASR, 2026</li>
-          <li><b>#1 Paper of the Day</b> on <a href="https://huggingface.co/papers" target="_blank" rel="noopener">Hugging Face</a> — Mini-Omni (2024) and Mega-ASR (2026)</li>
-          <li>Recommended to <a href="https://www.tsinghua.edu.cn/en/" target="_blank" rel="noopener">Tsinghua University</a> for graduate study without entrance examination</li>
         </ul>
       </div>
     </div>
