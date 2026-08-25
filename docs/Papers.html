@@ -365,7 +365,7 @@
       <a href="index.html#news">News</a>
       <a href="index.html#publications">Publications</a>
       <a href="index.html#activities">Activities</a>
-      <a class="nav-cta" href="papers.html"><i class="fa-regular fa-images"></i> Papers Gallery</a>
+      <a class="nav-cta" href="Papers.html"><i class="fa-regular fa-images"></i> Papers Gallery</a>
     </div>
   </div>
 </nav>
@@ -406,7 +406,7 @@
      PAPER DATA
 
      title      : card title
-     file       : path WITHOUT extension; loads file.png and file_hover.png
+     file       : path WITHOUT extension; loads file.webp and file_hover.webp
      repo       : GitHub "owner/name" — star count is fetched live
      stars      : fallback shown if the GitHub API is unavailable
      citations  : Google Scholar count (update by hand)
@@ -486,10 +486,10 @@
     item.className = "item";
 
     item.innerHTML = `
-      <img class="paper-image base" src="${work.file}.png" alt="${work.title}">
+      <img class="paper-image base" src="${work.file}.webp" alt="${work.title}">
 
-      <img class="paper-image hover" src="${work.file}_hover.png" alt="${work.title}"
-           onerror="this.onerror=null;this.src='${work.file}.png';">
+      <img class="paper-image hover" src="${work.file}_hover.webp" alt="${work.title}"
+           onerror="this.onerror=null;this.src='${work.file}.webp';">
 
       <span class="label title">${work.title}</span>
 
