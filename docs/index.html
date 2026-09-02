@@ -809,7 +809,7 @@
     </p>
 <div class="metrics">
 <div class="metric"><b id="m-citations">618</b> Citations</div>
-<div class="metric"><i class="fa-solid fa-star"></i> <b id="m-stars">—</b> GitHub Stars</div>
+<div class="metric"><i class="fa-solid fa-star"></i> <b id="m-stars">8.5k+</b> GitHub Stars</div>
 <div class="metric"><b>2×</b> Founder &amp; CEO</div>
 <div class="metric"><b>#1</b> Paper of the Day on Hugging Face</div>
 </div>
@@ -1481,80 +1481,6 @@
     el.textContent = days === 0 ? "today" : days === 1 ? "1 day ago" : days + " days ago";
   });
 
-  /* ---------- GitHub star counter ----------
-     STARS_SNAPSHOT is the last known total, hardcoded so the page always shows
-     a real number on the first visit. The live count refreshes at most once a
-     day and is cached in localStorage; when it changes, the console prints the
-     new line to paste back into STARS_SNAPSHOT. */
-  const STARS_SNAPSHOT = { total: 8500, updated: "2026-09-02" };   /* EDIT when the console tells you to */
-
-  const REPOS = [
-    "gpt-omni/mini-omni",
-    "gpt-omni/mini-omni2",
-    "xzf-thu/Audio-Reasoner",
-    "xzf-thu/Mini-Omni-Reasoner",
-    "xzf-thu/Mega-ASR",
-    "xzf-thu/Audio-Interaction",
-    "xzf-thu/VoiceMem",
-    "xzf-thu/Pask"
-  ];
-
-  const CACHE_KEY = "zx-stars";
-  const CACHE_TTL = 24 * 60 * 60 * 1000;
-
-  const compact = n =>
-    n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n);
-
-  const renderStars = n => {
-    const el = document.getElementById("m-stars");
-    if (el) el.textContent = compact(n) + "+";
-  };
-
-  (async () => {
-    let cached = null;
-    try { cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); } catch (e) {}
-
-    /* a cache older than the hardcoded snapshot is stale by definition */
-    const snapshotTime = Date.parse(STARS_SNAPSHOT.updated) || 0;
-    if (cached && (cached.total <= 0 || cached.time < snapshotTime)) cached = null;
-
-    renderStars(cached ? cached.total : STARS_SNAPSHOT.total);
-
-    if (cached && Date.now() - cached.time < CACHE_TTL) return;
-
-    const counts = await Promise.all(
-      REPOS.map(r =>
-        fetch("https://api.github.com/repos/" + r, {
-          headers: { "Accept": "application/vnd.github+json" }
-        })
-          .then(res => {
-            if (!res.ok) throw new Error(r + " → HTTP " + res.status);
-            return res.json();
-          })
-          .then(d => d.stargazers_count || 0)
-          .catch(err => { console.warn("star fetch failed:", err.message); return 0; })
-      )
-    );
-
-    /* only trust a total where every repo answered */
-    if (!counts.every(c => c > 0)) return;
-
-    const total = counts.reduce((a, b) => a + b, 0);
-    renderStars(total);
-
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ total, time: Date.now() }));
-    } catch (e) {}
-
-    if (total !== STARS_SNAPSHOT.total) {
-      console.info(
-        "%cGitHub stars updated → paste this into index.html:",
-        "font-weight:bold",
-        "\nconst STARS_SNAPSHOT = { total: " + total +
-        ', updated: "' + new Date().toISOString().slice(0, 10) + '" };'
-      );
-    }
-  })();
 </script>
 </body>
 </html>
