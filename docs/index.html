@@ -448,6 +448,7 @@
   @media (prefers-reduced-motion: reduce) {
     .new-badge::after, .new-badge.plain, .new-badge.retro { animation: none; }
     .new-badge::after { display: none; }
+    .fresh-badge::after { display: none; animation: none; }
     .news-card, .news-card .shot img { transition: none; }
     .news-card:hover { transform: none; }
     .news-card:hover .shot img { transform: none; }
@@ -540,6 +541,17 @@
 
   .pub .authors { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
 
+  /* my own name: pure black, heavier, slightly larger, lightly underlined */
+  .pub .authors b,
+  .other .meta b {
+    color: #000000;
+    font-weight: 900;
+    letter-spacing: 0.015em;
+    border-bottom: 1.5px solid rgba(0,0,0,0.32);
+    padding-bottom: 1px;
+  }
+  .pub .authors b { font-size: 14.5px; }
+
   .pub .venue {
     margin-top: 2px;
     font-size: 13.5px;
@@ -567,6 +579,40 @@
   .pub .links img { height: 19px; vertical-align: middle; }
 
   .pub .tldr { margin-top: 7px; font-size: 13.5px; line-height: 1.62; color: #4a4a4a; }
+
+  /* shiny "N days ago" chip that sits next to a paper title */
+  .fresh-badge {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: 2px;
+    margin-left: 9px;
+    padding: 2px 9px;
+    border: 1px solid #e0a83f;
+    border-radius: 999px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5px;
+    font-weight: bold;
+    letter-spacing: 0.07em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #55300a !important;
+    background: linear-gradient(135deg, #ffe0a8 0%, #fac775 55%, #f0b350 100%);
+    box-shadow: 0 1px 6px rgba(190,130,30,0.35);
+  }
+  .fresh-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    width: 45%;
+    height: 100%;
+    background: rgba(255,255,255,0.8);
+    transform: skewX(-20deg);
+    animation: new-sweep 2.8s ease-in-out infinite;
+  }
+  .pub .title:hover .fresh-badge { text-decoration: none; }
 
   .pub .citedby {
     margin-top: 6px;
@@ -704,7 +750,7 @@
 <div class="nav-links" id="nav-links">
 <a href="#biography">About</a>
 <a href="#news">News</a>
-<a href="#publications">Publications</a>
+<a href="#publications">Projects</a>
 <a href="#activities">Activities</a>
 <a class="nav-cta" href="Papers.html">Papers Gallery</a>
 </div>
@@ -720,7 +766,7 @@
 <span class="affil">Ph.D. Student, LV-Lab, Nanyang Technological University</span>
 <div class="hero-links">
 <a href="mailto:zhifei001@e.ntu.edu.sg" title="Email"><i class="fa-solid fa-envelope"></i></a>
-<a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=zhifei+xie&amp;oq=" rel="noopener" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+<a href="https://scholar.google.com/citations?user=zSaASjAAAAAJ&amp;hl=en" rel="noopener" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
 <a href="https://github.com/xzf-thu" rel="noopener" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
 <a href="https://huggingface.co/zhifeixie" rel="noopener" target="_blank" title="Hugging Face"><span class="hf">🤗</span></a>
 <a href="files/CV.pdf" rel="noopener" target="_blank" title="CV"><i class="fa-regular fa-file-lines"></i></a>
@@ -762,7 +808,7 @@
       up with me.
     </p>
 <div class="metrics">
-<div class="metric"><b id="m-citations">605</b> Citations</div>
+<div class="metric"><b id="m-citations">618</b> Citations</div>
 <div class="metric"><i class="fa-solid fa-star"></i> <b id="m-stars">—</b> GitHub Stars</div>
 <div class="metric"><b>2×</b> Founder &amp; CEO</div>
 <div class="metric"><b>#1</b> Paper of the Day on Hugging Face</div>
@@ -793,6 +839,8 @@
         </p>
 <div class="card-links">
 <a href="https://xzf-thu.github.io/VoiceMem/" rel="noopener" target="_blank">Project Page</a>
+<span class="sep">/</span>
+<a href="https://arxiv.org/abs/2608.26005" rel="noopener" target="_blank">arXiv</a>
 <span class="sep">/</span>
 <a href="https://github.com/xzf-thu/VoiceMem" rel="noopener" target="_blank">Code</a>
 </div>
@@ -840,6 +888,11 @@
 <!-- ---------- recent, text only ---------- -->
 <ul class="news-list">
 <li>
+<span class="when">08/2026</span>
+<span class="what">🎉 <b><a href="https://arxiv.org/abs/2608.25593" rel="noopener" target="_blank">JIT-Agent</a></b>,
+          a harness intelligence model that synthesizes task-adaptive agent harnesses just in time, is released.</span>
+</li>
+<li>
 <span class="when">07/2026</span>
 <span class="what">🎤 Invited to give a talk at
           <b><a href="https://www.ntu.edu.sg/" rel="noopener" target="_blank">Nanyang Technological University</a></b>.</span>
@@ -857,11 +910,6 @@
           (2.6M items, 302K hours, 7 capability families) and <b>Proactive-Sound-Bench</b>.
           <a href="https://xzf-thu.github.io/Audio-Interaction" rel="noopener" target="_blank">Project</a> ·
           <a href="https://github.com/xzf-thu/Audio-Interaction" rel="noopener" target="_blank">Code</a></span>
-</li>
-<li>
-<span class="when">06/2026</span>
-<span class="what">🎉 <b><a href="https://arxiv.org/abs/2606.07229" rel="noopener" target="_blank">MMAE</a></b>,
-          a massive multitask audio editing benchmark, is released.</span>
 </li>
 <li>
 <span class="when">05/2026</span>
@@ -1029,21 +1077,26 @@
        PUBLICATIONS  (reverse chronological)
   ========================================================= -->
 <section id="publications">
-<h2>Publications
+<h2>I Lead These Projects
       <span class="sub">* equal contribution  |  full list on
-        <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=zhifei+xie&amp;oq=" rel="noopener" target="_blank">Google Scholar</a>
+        <a href="https://scholar.google.com/citations?user=zSaASjAAAAAJ&amp;hl=en" rel="noopener" target="_blank">Google Scholar</a>
 </span>
 </h2>
 <!-- ---------- VoiceMem ---------- -->
 <div class="pub">
 <div class="thumb"><img alt="VoiceMem" src="images/paperintro/voicemem.webp"/><span class="new-badge">New</span></div>
 <div class="info">
-<a class="title" href="https://xzf-thu.github.io/VoiceMem/" rel="noopener" target="_blank">VoiceMem: A Streaming Dual-Brain Memory Architecture for Voice Agents</a>
-<div class="authors"><b>Zhifei Xie</b>, et al.</div>
-<div class="venue">Technical Report, 2026 <span class="flag">(Streaming memory for real-time voice agents)</span></div>
+<a class="title" href="https://arxiv.org/abs/2608.26005" rel="noopener" target="_blank">VoiceMem: Streaming Dual-Brain Memory for Real-Time Interaction<span class="fresh-badge" data-date="2026-08-29">4 days ago</span></a>
+<div class="authors">
+<b>Zhifei Xie</b>, Jiaqi Lang, Ze An, Yifan Zhao, Dongchao Yang, Kai Li, Ziyang Ma,
+          Mingbao Lin, Chunyan Miao, Shuicheng Yan
+        </div>
+<div class="venue">arXiv, 2026 <span class="flag">(Streaming memory for real-time voice agents)</span></div>
 <div class="links">
 <a href="https://xzf-thu.github.io/VoiceMem/" rel="noopener" target="_blank">Project Page</a> <span class="sep">/</span>
+<a href="https://arxiv.org/abs/2608.26005" rel="noopener" target="_blank">arXiv</a> <span class="sep">/</span>
 <a href="https://github.com/xzf-thu/VoiceMem" rel="noopener" target="_blank">Code</a>
+<img alt="GitHub stars" src="https://img.shields.io/github/stars/xzf-thu/VoiceMem.svg?style=social"/>
 </div>
 <p class="tldr"><b>VoiceMem</b> makes long-term memory native to the real-time voice loop. Its factual “left brain” and emotion/persona “right brain” retrieve compact memories while the user is still speaking, combining personalization with near-zero interaction overhead. The result is a practical path from stateless voice assistants to agents that remember, adapt and build continuity across conversations.</p>
 </div>
@@ -1069,24 +1122,6 @@
 <img alt="GitHub stars" src="https://img.shields.io/github/stars/xzf-thu/Audio-Interaction.svg?style=social"/>
 </div>
 <p class="tldr">Most voice assistants only react after a user speaks. <b>Audio Interaction Model</b> turns continuous sound into an always-on <b>perceive–decide–respond</b> loop, so a model can decide when to stay silent or proactively intervene. SoundFlow, StreamAudio-2M and Proactive-Sound-Bench make real-time proactive audio interaction a trainable and measurable research problem.</p>
-</div>
-</div>
-<!-- ---------- MMAE ---------- -->
-<div class="pub">
-<div class="thumb"><img alt="MMAE" src="images/paperintro/mmae.webp"/></div>
-<div class="info">
-<a class="title" href="https://github.com/ddlBoJack/MMAE" rel="noopener" target="_blank">MMAE: A Massive Multitask Audio Editing Benchmark</a>
-<div class="authors">
-          Ziyang Ma*, Ruiqi Yan*, Ruiyang Xu*, Jie Fang*, Zhikang Niu*, Yi-Wen Chao*, Wenming Tu*,
-          Tianrui Wang*, …, <b>Zhifei Xie</b>, …, Kai Yu, Liefeng Bo, Eng-Siong Chng, Xie Chen
-        </div>
-<div class="venue">arXiv, 2026</div>
-<div class="links">
-<a href="https://github.com/ddlBoJack/MMAE" rel="noopener" target="_blank">Project Page</a> <span class="sep">/</span>
-<a href="https://arxiv.org/abs/2606.07229" rel="noopener" target="_blank">arXiv</a> <span class="sep">/</span>
-<a href="https://huggingface.co/datasets/BoJack/MMAE" rel="noopener" target="_blank">Benchmark</a>
-</div>
-<p class="tldr"><b>MMAE</b> provides the missing evaluation foundation for general-purpose instruction-based audio editing: 7 modalities, 6 complexity levels, 8 edit types and 2,000 curated samples. With current systems still below 5% exact-match on its hardest setting, the benchmark exposes how far audio editing remains from reliable, compositional control.</p>
 </div>
 </div>
 <!-- ---------- Mega-ASR ---------- -->
@@ -1199,7 +1234,7 @@
 <div class="info">
 <a class="title" href="https://arxiv.org/abs/2410.11190" rel="noopener" target="_blank">Mini-Omni2: Towards Open-source GPT-4o with Vision, Speech and Duplex Capabilities</a>
 <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
-<div class="venue">arXiv, 2024 <span class="flag">(First real-time audio-visual duplex model · 1.5k+ stars)</span></div>
+<div class="venue">arXiv, 2024 <span class="flag">(First real-time audio-visual duplex model · 1.9k+ stars)</span></div>
 <div class="links">
 <a href="https://github.com/gpt-omni/mini-omni2" rel="noopener" target="_blank">Project Page</a> <span class="sep">/</span>
 <a href="https://arxiv.org/abs/2410.11190" rel="noopener" target="_blank">arXiv</a> <span class="sep">/</span>
@@ -1219,7 +1254,7 @@
 <div class="info">
 <a class="title" href="https://arxiv.org/abs/2408.16725" rel="noopener" target="_blank">Mini-Omni: Language Models Can Hear, Talk While Thinking in Streaming</a>
 <div class="authors"><b>Zhifei Xie</b>, Changqiao Wu</div>
-<div class="venue">arXiv, 2024 <span class="flag">(#1 Paper of the Day on Hugging Face · 3k+ stars)</span></div>
+<div class="venue">arXiv, 2024 <span class="flag">(#1 Paper of the Day on Hugging Face · 3.5k+ stars)</span></div>
 <div class="links">
 <a href="https://github.com/gpt-omni/mini-omni" rel="noopener" target="_blank">Project Page</a> <span class="sep">/</span>
 <a href="https://arxiv.org/abs/2408.16725" rel="noopener" target="_blank">arXiv</a> <span class="sep">/</span>
@@ -1255,11 +1290,16 @@
 </div>
 </section>
 <!-- =========================================================
-       OTHER PUBLICATIONS
+       SELECTED PUBLICATIONS
   ========================================================= -->
 <section id="more-publications">
-<h2>Other Publications</h2>
+<h2>Selected Publications</h2>
 <ul class="other">
+<li>
+<span class="name"><a href="https://arxiv.org/abs/2608.25593" rel="noopener" target="_blank">JIT-Agent: Scaling Harness Intelligence via Just-in-Time Harness Evolution</a></span><br/>
+<span class="meta">G. Zhang, L. Lu, F. Xie, K. Zhu, J. Wang, <b>Z. Xie</b>, Z. Yu, Z. Liu, et al.  · 
+          <em><a href="https://arxiv.org/abs/2608.25593" rel="noopener" target="_blank">arXiv 2026</a></em></span>
+</li>
 <li>
 <span class="name">HeartMula: A Family of Open Sourced Music Foundation Models</span><br/>
 <span class="meta">D. Yang, Y. Xie, Y. Yin, Z. Wang, X. Yi, G. Zhu, X. Weng, Z. Xiong, Y. Ma, <b>Z. Xie</b>, et al.  · 
@@ -1372,8 +1412,8 @@
 <div class="head"><i class="fa-solid fa-code-branch"></i>Open Source</div>
 <div class="body">
 <ul>
-<li>Maintainer of the <b>Mini-Omni</b> series, <b>Audio-Reasoner</b>, <b>Mega-ASR</b> and
-            <b>Audio-Interaction</b> — thousands of GitHub stars and widely used as baselines in the speech-LM community</li>
+<li>Maintainer of the <b>Mini-Omni</b> series, <b>Audio-Reasoner</b>, <b>Mega-ASR</b>,
+            <b>Audio-Interaction</b> and <b>VoiceMem</b> — thousands of GitHub stars and widely used as baselines in the speech-LM community</li>
 <li>Open datasets: <b>CoTA</b>, <b>Spoken-Math-Problems-3M</b>, <b>Voices-in-the-Wild-2M</b>, <b>StreamAudio-2M</b></li>
 </ul>
 </div>
@@ -1390,7 +1430,7 @@
 </section>
 <footer>
 <span>© 2026 Zhifei Xie · Nanyang Technological University</span>
-<span>Last updated: August 2026</span>
+<span>Last updated: September 2026</span>
 </footer>
 </div>
 <script>
@@ -1430,12 +1470,23 @@
     });
   });
 
+  /* ---------- "N days ago" chips keep themselves accurate ----------
+     Set data-date="YYYY-MM-DD" on a .fresh-badge; the chip recomputes the
+     wording on every page load and hides itself once the item is 30+ days old. */
+  document.querySelectorAll(".fresh-badge[data-date]").forEach(el => {
+    const t = Date.parse(el.dataset.date);
+    if (!t) return;
+    const days = Math.max(0, Math.floor((Date.now() - t) / 86400000));
+    if (days >= 30) { el.style.display = "none"; return; }
+    el.textContent = days === 0 ? "today" : days === 1 ? "1 day ago" : days + " days ago";
+  });
+
   /* ---------- GitHub star counter ----------
      STARS_SNAPSHOT is the last known total, hardcoded so the page always shows
      a real number on the first visit. The live count refreshes at most once a
      day and is cached in localStorage; when it changes, the console prints the
      new line to paste back into STARS_SNAPSHOT. */
-  const STARS_SNAPSHOT = { total: 7800, updated: "2026-08-25" };   /* EDIT when the console tells you to */
+  const STARS_SNAPSHOT = { total: 8437, updated: "2026-09-02" };   /* EDIT when the console tells you to */
 
   const REPOS = [
     "gpt-omni/mini-omni",
@@ -1443,7 +1494,9 @@
     "xzf-thu/Audio-Reasoner",
     "xzf-thu/Mini-Omni-Reasoner",
     "xzf-thu/Mega-ASR",
-    "xzf-thu/Audio-Interaction"
+    "xzf-thu/Audio-Interaction",
+    "xzf-thu/VoiceMem",
+    "xzf-thu/Pask"
   ];
 
   const CACHE_KEY = "zx-stars";
